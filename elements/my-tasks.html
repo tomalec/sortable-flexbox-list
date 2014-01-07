@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
+
+<link rel="import" href="my-item.html">
+
+<polymer-element name="my-tasks" noscript attributes="data userId site">
+	<template>
+		<link rel="stylesheet" href="my-tasks.css">
+
+
+		<section id="todoapp">
+			<section id="main" hidden?="{{resp.tasks.length == 0}}">
+			<ol id="todo-list">
+				<template repeat="{{resp.tasks}}">
+					<li is="my-item" item="{{}}"></li>
+				</template>
+			</ol>
+			</section>
+			<footer id="footer" hidden?="{{model.items.length == 0}}">
+				<span id="todo-count">Curent order: <strong>{{resp.userOrder$}}</strong></span>
+			</footer>
+		</section>
+
+	<polymer-ajax 
+	    url="{{data}}"
+	    auto 
+	    response="{{resp}}"
+	    handleAs="json"></polymer-ajax>
+	</template>
+</polymer-element>

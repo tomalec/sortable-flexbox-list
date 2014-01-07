@@ -1,0 +1,20 @@
+{
+  "name": "my-tasks",
+  "version": "0.0.1",
+  "description": "<my-tasks> is a Custom Element with Sortable tasks list, that uses CSS flexbox.",
+  "authors": [
+    "Tomek Wytrębowicz (https://github.com/tomalec)"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer-ajax": "Polymer/polymer-ajax",
+    "polymer": "Polymer/polymer#~0.1.0"
+  }
+}
