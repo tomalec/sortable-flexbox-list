@@ -3,28 +3,155 @@
 
 <link rel="import" href="my-item.html">
 
-<polymer-element name="my-tasks" noscript attributes="data userId site">
+<polymer-element name="my-tasks" attributes="data src">
 	<template>
 		<link rel="stylesheet" href="my-tasks.css">
 
 
 		<section id="todoapp">
-			<section id="main" hidden?="{{resp.tasks.length == 0}}">
-			<ol id="todo-list">
-				<template repeat="{{resp.tasks}}">
-					<li is="my-item" item="{{}}"></li>
+			<section id="main" hidden?="{{data.tasks.length == 0}}">
+			<ol id="todolist" draggable="false">
+				<template repeat="{{ item, index in data.tasks }}">
+					<li draggable="true" data-index="{{index}}" style="order: {{index}};">{{item.desc}}</li>
 				</template>
 			</ol>
 			</section>
 			<footer id="footer" hidden?="{{model.items.length == 0}}">
-				<span id="todo-count">Curent order: <strong>{{resp.userOrder$}}</strong></span>
+				<span id="todo-count">Curent order: <strong>{{data.userOrder$}}</strong></span>
 			</footer>
 		</section>
-
-	<polymer-ajax 
-	    url="{{data}}"
-	    auto 
-	    response="{{resp}}"
-	    handleAs="json"></polymer-ajax>
 	</template>
+	 <script>
+        Polymer('my-tasks', {
+        	data: null,
+
+            ready: function () {
+                this.data = this.data || 
+                {
+					"userOrder$": [1,0],
+					"tasks": [{
+						"desc": "one"
+					}, {
+						"desc": "two"
+					}, {
+						"desc": "three"
+					}, {
+						"desc": "four"
+					}, {
+						"desc": "five"
+					}, {
+						"desc": "six"
+					}, {
+						"desc": "seven"
+					}, {
+						"desc": "eight"
+					}]
+				};
+            },
+            dataChanged: function () {
+                if (this.data != null)
+                {
+                    if (this.data != "")
+                    {
+                        this.makeDraggable();
+                    };
+                };
+            },
+            makeDraggable: function() {
+                var self = this;
+                //debugger
+                var drag = this.$.todolist;
+                //[].forEach.call(this.$.todolist.children, function(drag) {
+	                drag.addEventListener('dragstart', self.dragStart.bind(self), false);    
+	                drag.addEventListener('dragenter', self.dragEnter.bind(self), false);    
+	                drag.addEventListener('dragover', self.dragOver.bind(self), false);    
+	                drag.addEventListener('dragleave', self.dragLeave.bind(self), false);    
+	                drag.addEventListener('drop', self.drop.bind(self), false);    
+	                drag.addEventListener('dragend', self.dragEnd.bind(self), false);
+	            //});
+            },
+            dragStart: function(event) {
+            	console.log("dragStart", this, arguments);
+                event.target.classList.add('move');
+                if (event.stopPropagation)
+                    event.stopPropagation();
+                event.dataTransfer.effectAllowed = 'move';
+                //debugger
+                event.dataTransfer.setData('flextasks/from', event.target.style.order);
+            },
+            dragEnter: function(event) {
+            	console.log("dragEnter", event.target, event.currentTarget, this, arguments);
+              //  var id = event.dataTransfer.getData('flextasks/from');
+                if (event.stopPropagation)
+                    event.stopPropagation();
+                event.target.classList.add('over');
+            },
+            dragOver: function(ev) {
+            	console.log("dragOver", this, arguments);
+
+                if (ev.preventDefault) {
+                    ev.preventDefault();
+                }
+                ev.dataTransfer.dropEffect = 'move';   
+            },
+            dragLeave: function(ev) {
+            	console.log("dragLeave", this, arguments);
+            	
+                if (ev.stopPropagation)
+                    ev.stopPropagation();
+                event.target.classList.remove('over');
+                event.target.classList.remove('move');
+            },
+            drop: function(event) {
+                var from = event.dataTransfer.getData('flextasks/from');
+
+                if (event.stopPropagation)
+                    event.stopPropagation();
+                event.target.classList.remove('over');
+
+            	console.log("drop", this, arguments, from, event.target.style.order);
+            	this.moveItem( from, event.target.style.order);
+                return false;
+            },
+            dragEnd: function(ev) {
+            	console.log("dragEnd", this, arguments);
+            },
+
+            moveItem: function moveItem(from, to){
+            	var listItems, len, currentItem, currentOrder;
+            	if( from == to ){
+            		return;
+            	}
+
+            	listItems = this.$.todolist.getElementsByTagName("li");
+            	len = listItems.length;
+            	if (from < to){
+            		while(len--){
+            			currentItem = listItems[len];
+            			currentOrder = currentItem.style.order;
+            			if( currentOrder > from && currentOrder < to){
+            				currentItem.style.order--;
+            			} else if (currentOrder == from){
+            				currentItem.style.order = to - 1;
+            			}
+            			
+            		}
+            	} else {
+            		while(len--){
+            			currentItem = listItems[len];
+            			currentOrder = currentItem.style.order;
+            			if( currentOrder >= to && currentOrder < from){
+            				currentItem.style.order++;
+            			} else if (currentOrder == from){
+            				currentItem.style.order = to;
+            			}
+            			
+            		}
+            	}
+
+            }
+
+
+        });
+    </script>
 </polymer-element>

@@ -57,7 +57,16 @@ font-size: 14px;
     -ms-flex-item-align: auto;
     align-self: auto;
     }
+li:hover{
+    border-color:#2b7cab;
+}
+li.over{
+    background: #c0c0c0;
+}
 
+li.move{
+    opacity: .5;
+}
 /*
     Legacy Firefox implementation treats all flex containers
     as inline-block elements.
@@ -95,7 +104,7 @@ ol {
 	border-top: 1px dotted #adadad;
 }
 
-#todo-list {
+#todolist {
 	margin: 0;
 	padding: 0;
 	list-style: none;
