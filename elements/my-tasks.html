@@ -1,12 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="my-tasks" attributes="data src">
+<polymer-element name="my-tasks" attributes="data src" extends="ol">
 	<template>
 		<link rel="stylesheet" href="my-tasks.css">
-		<ol id="todolist" draggable="false">
-			<content></content>
-		</ol>
+		<content></content>
 	</template>
 	 <script>
         Polymer('my-tasks', {
@@ -18,23 +16,22 @@
             makeDraggable: function() {
                 console.info("makeDraggable", this, arguments)
                 //debugger
-                var drag = this.$.todolist;
-
                 var listItems, len, currentItem;
                 //debugger
                 listItems = this.children;
                 len = listItems.length;
+                this.draggable = false;
                 while(len--){
                     if(listItems[len].getAttribute("sortable")!=="false"){
                         listItems[len].draggable = true;
                     }
                 }
-                drag.addEventListener('dragstart', this.dragStart.bind(this), false);    
-                drag.addEventListener('dragenter', this.dragEnter.bind(this), false);    
-                drag.addEventListener('dragover', this.dragOver.bind(this), false);    
-                drag.addEventListener('dragleave', this.dragLeave.bind(this), false);    
-                drag.addEventListener('drop', this.drop.bind(this), false);    
-                drag.addEventListener('dragend', this.dragEnd.bind(this), false);
+                this.addEventListener('dragstart', this.dragStart.bind(this), false);    
+                this.addEventListener('dragenter', this.dragEnter.bind(this), false);    
+                this.addEventListener('dragover', this.dragOver.bind(this), false);    
+                this.addEventListener('dragleave', this.dragLeave.bind(this), false);    
+                this.addEventListener('drop', this.drop.bind(this), false);    
+                this.addEventListener('dragend', this.dragEnd.bind(this), false);
             },
             dragStart: function dragStart(event) {
             	console.log("dragStart", this, arguments);

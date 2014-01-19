@@ -15,13 +15,14 @@
 		</header>
 		<section id="todoapp">
 				<section id="main">
-				    <my-tasks unresolved>
+					<button>Change CSS `flex-direction`</button>
+				    <my-tasks>
 						<li style="order: 0; height: 1em">zero</li>
 						<li style="order: 1; height: 2em">one</li>
 						<li style="order: 2; height: 3em">two</li>
 						<li sortable="false" style="order: 3; height: 4em">three</li>
 						<li style="order: 4; height: 5em">four</li>
-						<strong style="order: 5; height: 6em">five</strong>
+						<strong style="order: 5;">five</strong>
 						<li style="order: 6; height: 7em">six</li>
 						<li style="order: 7; height: 8em">seven</li>
 						<li style="order: 8; height: 9em">eight</li>
@@ -38,6 +39,11 @@
 
 		document.querySelector('my-tasks').addEventListener('change', function(e) {
 			document.querySelector('#todo-count>strong').innerHTML = e.detail.order;
+		});
+		document.querySelector('button').addEventListener('click', function(e) {
+			document.querySelector('my-tasks').style["flex-direction"] = 
+				document.querySelector('my-tasks').style["flex-direction"] == "column"?
+					"row" : "column";
 		});
       // Needed to detect model changes if Object.observe
       // is not available in the JS VM.

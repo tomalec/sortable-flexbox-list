@@ -1,4 +1,4 @@
-ol {
+:host {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -29,7 +29,7 @@ ol {
     align-items: center;
     }
 
-body ^^ li{
+:host li{
     color: rgb(57, 57, 57);
     background-color: #fff;
     border: 1px solid #b9b9b9;
@@ -63,15 +63,9 @@ body ^^ li{
 */
 
 @-moz-document url-prefix() {
-    ol {
+    :host {
         width: 100%;
         -moz-box-sizing: border-box;
     }
 
-}
-
-#todolist {
-	margin: 0;
-	padding: 0;
-	list-style: none;
 }
