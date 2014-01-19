@@ -105,6 +105,7 @@
             		}
             	}
                 this.order = newOrder.reverse();
+                this.fire('change', {from: from, to: to, order: this.order}, null, false);
 
             }
 
