@@ -1,65 +1,19 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
 
-<link rel="import" href="my-item.html">
 
 <polymer-element name="my-tasks" attributes="data src">
 	<template>
 		<link rel="stylesheet" href="my-tasks.css">
-
-
-		<section id="todoapp">
-			<section id="main" hidden?="{{data.tasks.length == 0}}">
-			<ol id="todolist" draggable="false">
-				<template repeat="{{ item, index in data.tasks }}">
-					<li draggable="true" data-index="{{index}}" style="order: {{item.userOrder$}};">{{item.desc}}</li>
-				</template>
-			</ol>
-			</section>
-			<footer id="footer" hidden?="{{data.tasks.length == 0}}">
-				<span id="todo-count">Curent order: <strong><template repeat="{{data.tasks}}">{{userOrder$}} </template></strong></span>
-			</footer>
-		</section>
+		<ol id="todolist" draggable="false">
+			<content></content>
+		</ol>
 	</template>
 	 <script>
         Polymer('my-tasks', {
-        	data: null,
+        	order: null,
 
             ready: function () {
-                this.data = this.data || 
-                {
-					"tasks": [{
-                        "desc": "zero",
-                        "userOrder$": 0
-                    }, {
-                        "desc": "one",
-                        "userOrder$": 1
-                    }, {
-						"desc": "two",
-                        "userOrder$": 2
-					}, {
-						"desc": "three",
-                        "userOrder$": 3
-					}, {
-						"desc": "four",
-                        "userOrder$": 4
-					}, {
-						"desc": "five",
-                        "userOrder$": 5
-					}, {
-						"desc": "six",
-                        "userOrder$": 6
-					}, {
-						"desc": "seven",
-                        "userOrder$": 7
-					}]
-				};
-            },
-            dataChanged: function () {
-                console.info("dataChanged", this, arguments)
-                if(this.data != null && this.data != ""){
-                        this.makeDraggable();
-                }
+                this.makeDraggable();
             },
             makeDraggable: function() {
                 console.info("makeDraggable", this, arguments)
@@ -113,8 +67,6 @@
 
             	console.log("drop", this, arguments, from, event.target.style.order);
             	this.moveItem( from, event.target.style.order);
-                console.info(this.data)
-                //this.data.tasks[0]["userOrder$"]=1000;
                 return false;
             },
             dragEnd: function(ev) {
@@ -122,34 +74,37 @@
             },
 
             moveItem: function moveItem(from, to){
-            	var listItems, len, currentItem;
+            	var listItems, len, currentItem, newOrder=[];
             	if( from == to ){
             		return;
             	}
-
-            	listItems = this.data.tasks;
+                //debugger
+            	listItems = this.children;
             	len = listItems.length;
             	if (from < to){
             		while(len--){
             			currentItem = listItems[len];
-            			if( currentItem.userOrder$ > from && currentItem.userOrder$ < to){
-            				currentItem.userOrder$ --;
-            			} else if (currentItem.userOrder$ == from){
-            				currentItem.userOrder$  = to - 1;
+            			if( currentItem.style.order > from && currentItem.style.order < to){
+            				currentItem.style.order --;
+            			} else if (currentItem.style.order == from){
+            				currentItem.style.order  = to - 1;
             			}
+                        newOrder.push(currentItem.style.order);
             			
             		}
             	} else {
             		while(len--){
             			currentItem = listItems[len];
-            			if( currentItem.userOrder$ >= to && currentItem.userOrder$ < from){
-            				currentItem.userOrder$++;
-            			} else if (currentItem.userOrder$ == from){
-            				currentItem.userOrder$ = to;
+            			if( currentItem.style.order >= to && currentItem.style.order < from){
+            				currentItem.style.order++;
+            			} else if (currentItem.style.order == from){
+            				currentItem.style.order = to;
             			}
+                        newOrder.push(currentItem.style.order);
             			
             		}
             	}
+                this.order = newOrder.reverse();
 
             }
 
