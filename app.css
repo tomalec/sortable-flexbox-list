@@ -71,7 +71,10 @@ li.move{
     opacity: .5;
 }
 
-
+my-tasks>[sortable=false]{
+	opacity: .5;
+	cursor: no-drop;
+}
 
 
 

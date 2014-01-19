@@ -19,6 +19,16 @@
                 console.info("makeDraggable", this, arguments)
                 //debugger
                 var drag = this.$.todolist;
+
+                var listItems, len, currentItem;
+                //debugger
+                listItems = this.children;
+                len = listItems.length;
+                while(len--){
+                    if(listItems[len].getAttribute("sortable")!=="false"){
+                        listItems[len].draggable = true;
+                    }
+                }
                 drag.addEventListener('dragstart', this.dragStart.bind(this), false);    
                 drag.addEventListener('dragenter', this.dragEnter.bind(this), false);    
                 drag.addEventListener('dragover', this.dragOver.bind(this), false);    
