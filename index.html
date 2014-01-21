@@ -3,7 +3,7 @@
   	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Polymer • SortableItems</title>
+		<title>Polymer • SortableList</title>
 		<link rel="stylesheet" href="app.css">
 
     	<script src="bower_components/platform/platform.js"></script>
@@ -13,24 +13,29 @@
 		<header>
 			<h1>tasks</h1>
 		</header>
-		<section id="todoapp">
-				<section id="main">
-					<button>Change CSS `flex-direction`</button>
-				    <my-tasks>
-						<li style="order: 0; height: 1em">zero</li>
-						<li style="order: 1; height: 2em">one</li>
-						<li style="order: 2; height: 3em">two</li>
-						<li sortable="false" style="order: 3; height: 4em">three</li>
-						<li style="order: 4; height: 5em">four</li>
-						<strong style="order: 5;">five</strong>
-						<li style="order: 6; height: 7em">six</li>
-						<li style="order: 7; height: 8em">seven</li>
-						<li style="order: 8; height: 9em">eight</li>
-				    	<button style="order: 9;">nine</button>
-					</my-tasks>
-				</section>
-				<footer id="footer">
-					<span id="todo-count">New order: <strong></strong></span>
+		<section id="exampleApp">
+			<section id="main">
+				<button>Change CSS `flex-direction`</button>
+			    <my-tasks>
+					<li style="order: 0; height: 1em">zero</li>
+					<li style="order: 1; height: 2em">one</li>
+					<li style="order: 2; height: 3em">two</li>
+					<li sortable="false" style="order: 3; height: 4em">three</li>
+					<li style="order: 4; height: 5em">four</li>
+					<strong style="order: 5;">five</strong>
+					<li style="order: 6; height: 7em">six</li>
+					<li style="order: 7; height: 8em">seven</li>
+					<li style="order: 8; height: 9em">eight</li>
+			    	<button style="order: 9;">nine</button>
+				</my-tasks>
+			</section>
+			<footer id="footer">
+				<dl>
+					<dt>my-tasks<strong>.order</strong></dt>
+					<dd>order of sorted items<br/><strong id="newOrder"></strong></dd>
+					<dt>my-tasks<strong>@change</strong></dt>
+					<dd>event triggered after every change<br/><strong id="change"></strong></dd>
+				</dl>
 			</footer>
 		</section>
 
@@ -38,7 +43,8 @@
     document.addEventListener('DOMContentLoaded', function() {
 
 		document.querySelector('my-tasks').addEventListener('change', function(e) {
-			document.querySelector('#todo-count>strong').innerHTML = e.detail.order;
+			document.querySelector('#newOrder').innerHTML = e.detail.order;
+			document.querySelector('#change').innerHTML = JSON.stringify(e.detail);
 		});
 		document.querySelector('button').addEventListener('click', function(e) {
 			document.querySelector('my-tasks').style["flex-direction"] = 

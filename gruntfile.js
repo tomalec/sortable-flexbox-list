@@ -30,7 +30,7 @@ module.exports = function (grunt) {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
-                    '*.html',
+                    '*.{html,css}',
                     'elements/**/*.html',
                     '{.tmp,.}/styles/{,*/}*.css',
                     '{.tmp,.}/scripts/{,*/}*.js',
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
         },
         connect: {
             options: {
-                port: 9001,
+                port: 9000,
                 // change this to '0.0.0.0' to access the server from outside
                 hostname: 'localhost'
             },

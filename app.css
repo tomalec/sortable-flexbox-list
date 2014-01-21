@@ -19,7 +19,6 @@ body {
 	-o-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
-
 h1 {
   /*	position: absolute;
 	top: -120px;*/
@@ -46,6 +45,9 @@ h1 {
 	display: none;
 }
 
+dl{
+	margin: 0;
+}
 li{
 	color: rgb(57, 57, 57);
 	background-color: #fff;
@@ -76,61 +78,58 @@ my-tasks>[sortable=false]{
 	cursor: no-drop;
 }
 
-
-
-
-#todoapp {
-	background: #E3E3E3;
-	background: rgb(227, 227, 227, 0.9);
-	/*margin: 130px 0 40px 0;*/
-	margin: 0 0 40px 0;
-	border: 1px solid #ccc;
+#exampleApp {
 	position: relative;
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
-				0 25px 50px 0 rgba(0, 0, 0, 0.15);
 }
-
 #header {
 	padding-top: 15px;
 	border-radius: inherit;
 }
 
 #main {
+	background: #E3E3E3;
+	background: rgb(227, 227, 227, 0.9);
+	/*margin: 130px 0 40px 0;*/
+	margin: 0;
+	border: 1px solid #ccc;
+	padding: 0 0 12px 0;
 	position: relative;
 	z-index: 2;
-	border-top: 1px dotted #adadad;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
+				0 25px 50px 0 rgba(0, 0, 0, 0.15);
 }
 
 #footer {
 	color: #777;
-	padding: 0 15px;
-	position: absolute;
+	background-color: #D0DADF;
+	box-shadow:
+				0 1px 2px 0 rgba(0, 0, 0, 0.2);
+	margin: 0 6px;
+	padding: 3px 15px;
 	right: 0;
-	bottom: -31px;
+	bottom: 0px;
 	left: 0;
-	height: 20px;
-	z-index: 1;
-	text-align: center;
+	z-index: 3;
+	text-align: left;
+	position: relative;
 }
 
 #footer:before {
 	content: '';
+	top: -12px;
 	position: absolute;
-	right: 0;
-	bottom: 31px;
 	left: 0;
-	height: 50px;
-	z-index: -1;
+	margin-left: -6px;
+	padding-left: 6px;
+	padding-right: 6px;
+	width: 100%;
+	height: 12px;
+	display: block;
+	z-index: 1;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3),
 				0 6px 0 -3px rgba(255, 255, 255, 0.8),
-				0 7px 1px -3px rgba(0, 0, 0, 0.3),
-				0 43px 0 -6px rgba(255, 255, 255, 0.8),
-				0 44px 2px -6px rgba(0, 0, 0, 0.2);
-}
-
-#todo-count {
-	float: left;
-	text-align: left;
+				0 7px 1px -3px rgba(0, 0, 0, 0.3)
+				;
 }
