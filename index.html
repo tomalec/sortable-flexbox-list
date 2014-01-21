@@ -16,9 +16,9 @@
 		<section id="exampleApp">
 			<section id="main">
 				<button>Change CSS `flex-direction`</button>
-			    <my-tasks>
-					<li style="order: 0; height: 1em">zero</li>
-					<li style="order: 1; height: 2em">one</li>
+			    <my-tasks unresolved>
+					<li style="order: 0; height: 1em"><button>zero</button></li>
+					<li style="order: 1; height: 2em"><input value="one"/></li>
 					<li style="order: 2; height: 3em">two</li>
 					<li sortable="false" style="order: 3; height: 4em">three</li>
 					<li style="order: 4; height: 5em">four</li>
@@ -45,6 +45,7 @@
 		document.querySelector('my-tasks').addEventListener('change', function(e) {
 			document.querySelector('#newOrder').innerHTML = e.detail.order;
 			document.querySelector('#change').innerHTML = JSON.stringify(e.detail);
+			console.log("order changed:", e.detail);
 		});
 		document.querySelector('button').addEventListener('click', function(e) {
 			document.querySelector('my-tasks').style["flex-direction"] = 
