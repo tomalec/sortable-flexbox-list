@@ -1,7 +1,7 @@
 {
   "name": "tomalec-sortable-list",
-  "version": "0.0.1",
-  "description": "<tomalec-sortable-list> is a Custom Element with Sortable tasks list, that uses CSS flexbox.",
+  "version": "0.0.20140121",
+  "description": "<tomalec-sortable-list> is a Custom Element with sortable list, that uses CSS flexbox.",
   "authors": [
     "Tomek Wytrębowicz (https://github.com/tomalec)"
   ],
@@ -16,5 +16,13 @@
   "dependencies": {
     "polymer-ajax": "Polymer/polymer-ajax",
     "polymer": "Polymer/polymer#~0.1.0"
-  }
+  },
+  "homepage": "https://github.com/tomalec/sortable-flexbox-list",
+  "keywords": [
+    "sortable",
+    "html5",
+    "drag and drop",
+    "polymer",
+    "webcomponents"
+  ]
 }
