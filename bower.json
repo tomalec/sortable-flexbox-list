@@ -1,7 +1,7 @@
 {
-  "name": "my-tasks",
+  "name": "tomalec-sortable-list",
   "version": "0.0.1",
-  "description": "<my-tasks> is a Custom Element with Sortable tasks list, that uses CSS flexbox.",
+  "description": "<tomalec-sortable-list> is a Custom Element with Sortable tasks list, that uses CSS flexbox.",
   "authors": [
     "Tomek Wytrębowicz (https://github.com/tomalec)"
   ],

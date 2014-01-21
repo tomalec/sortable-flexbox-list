@@ -73,12 +73,12 @@ li.move{
     opacity: .5;
 }
 
-my-tasks>[sortable=false]{
+tomalec-sortable-list>[sortable=false]{
 	opacity: .5;
 	cursor: no-drop;
 }
 
-my-tasks[unresolved]{
+tomalec-sortable-list[unresolved]{
 	height: 1em;
 }
 
