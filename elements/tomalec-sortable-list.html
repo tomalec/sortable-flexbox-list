@@ -10,6 +10,8 @@
         Polymer('tomalec-sortable-list', {
         	order: null,
 
+            dragged: null,
+
             ready: function () {
                 this.makeDraggable();
             },
@@ -20,75 +22,80 @@
                 //debugger
                 listItems = this.children;
                 len = listItems.length;
-                this.draggable = false;
                 while(len--){
-                    listItems[len].draggable = (listItems[len].getAttribute("sortable")!=="false");
+                    currentItem = listItems[len];
+                    //currentItem.draggable = (listItems[len].getAttribute("sortable")!=="false");
+                    if( listItems[len].getAttribute("sortable") !== "false" ){
+                        currentItem.draggable = true;
+                        currentItem.addEventListener('dragstart', this.dragStart.bind(this), false);
+                        currentItem.addEventListener('dragenter', this.dragEnter.bind(this), false);
+                        currentItem.addEventListener('dragover', this.dragOver.bind(this), false);
+                        currentItem.addEventListener('dragleave', this.dragLeave.bind(this), false);
+                        currentItem.addEventListener('drop', this.drop.bind(this), false);
+                        currentItem.addEventListener('dragend', this.dragEnd.bind(this), false);
+                    }
                 }
-                this.addEventListener('dragstart', this.dragStart.bind(this), false);    
-                this.addEventListener('dragenter', this.dragEnter.bind(this), false);    
-                this.addEventListener('dragover', this.dragOver.bind(this), false);    
-                this.addEventListener('dragleave', this.dragLeave.bind(this), false);    
-                this.addEventListener('drop', this.drop.bind(this), false);    
-                this.addEventListener('dragend', this.dragEnd.bind(this), false);
             },
             dragStart: function dragStart(event) {
             	//d console.log("dragStart", this, arguments);
                 if (event.stopPropagation)
                     event.stopPropagation();
-                event.target.classList.add('move');
+                event.currentTarget.classList.add('move');
                 event.dataTransfer.effectAllowed = 'move';
                 //debugger
-                event.dataTransfer.setData('flextasks/from', event.target.style.order);
+                event.dataTransfer.setData('flextasks/from', event.currentTarget.style.order);
+
+                this.dragged = event.currentTarget.style.order;
+                //d console.log('start dragging this.dragged', event.currentTarget.style.order, this)
             
             },
             dragEnter: function dragEnter(event) {
             	//d console.log("dragEnter", event.target, event.currentTarget, this, arguments);
                 if (event.stopPropagation)
                     event.stopPropagation();
-                event.target.classList.add('over');
+                event.currentTarget.classList.add('over');
             },
-            dragOver: function dragOver(ev) {
+            dragOver: function dragOver(event) {
             	//d console.log("dragOver", this, arguments);
-
-                if (ev.preventDefault) {
-                    ev.preventDefault();
+                if (event.preventDefault) {
+                    event.preventDefault();
                 }
-                ev.dataTransfer.dropEffect = 'move';   
+                event.dataTransfer.dropEffect = 'move';   
             },
-            dragLeave: function dragLeave(ev) {
-            	//d console.log("dragLeave", this, arguments);
-            	
-                if (ev.stopPropagation)
-                    ev.stopPropagation();
-                event.target.classList.remove('over');
-                event.target.classList.remove('move');
-            },
-            drop: function drop(event) {
-                var from = event.dataTransfer.getData('flextasks/from');
-
+            dragLeave: function dragLeave(event) {
+            	//d console.log("dragLeave", event.target, event.currentTarget, this, arguments);
                 if (event.stopPropagation)
                     event.stopPropagation();
-
-                event.target.classList.remove('over');
-
-                //paranoid check for text selection
-                if( event.target.draggable && !isNaN(parseInt(from),10) ){
-                    console.log("drop", this, arguments, from, event.target.style.order);
-                    this.moveItem( from, event.target.style.order);
+                event.currentTarget.classList.remove('over');
+                event.currentTarget.classList.remove('move');
+            },
+            drop: function drop(event) {
+                //d console.log("drop this.dragged",  this.dragged, this);
+                var from = event.dataTransfer.getData('flextasks/from');
+                //debugger;
+                event.currentTarget.classList.remove('over');
+                
+                
+                if( this.dragged && //if there is something beeing dragged for this instance
+                    event.currentTarget.draggable && //paranoid check for text selection
+                    !isNaN(parseInt(from),10) ){
+                    event.stopPropagation();
+                    console.log("drop", this, arguments, 'from',from, 'to', event.currentTarget.style.order, this.dragged,this.childElementCount);
+                    this.moveItem( this.dragged, event.currentTarget.style.order);
+                    this.dragged = null;
                 }
                 return false;
             },
-            dragEnd: function(ev) {
+            dragEnd: function(event) {
             	//d console.log("dragEnd", this, arguments);
             },
 
             moveItem: function moveItem(from, to){
-                //d console.log("move", from, to)
+                //d console.log("move", from, to, this)
             	var listItems, len, currentItem, newOrder=[];
             	if( from == to ){
             		return;
             	}
-                //debugger
             	listItems = this.children;
             	len = listItems.length;
             	if (from < to){

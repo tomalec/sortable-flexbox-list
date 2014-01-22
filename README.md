@@ -7,6 +7,9 @@
 ## Demo
 
 > [Check it live](http://tomalec.github.io/sortable-flexbox-list/).
+>> Advanced examples:
+>>
+>> * [Nested list](http://tomalec.github.io/sortable-flexbox-list/examples/nested.html)
 
 ## Usage
 
@@ -58,6 +61,9 @@ Event Name  | event.detail                   | Description
 
 
 ## History
+
+* v0.0.20140122 January 22, 2014
+	* Nested lists
 
 * v0.0.20140121 January 21, 2014
 	* Initial version

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Polymer • Nested SortableList</title>
+		<link rel="stylesheet" href="nested.css">
+
+    	<script src="../bower_components/platform/platform.js"></script>
+   		<link rel="import" href="../elements/tomalec-sortable-list.html">
+  	</head>
+  	<body>
+		<header>
+			<h1>Nested Sortable List</h1>
+		</header>
+		<section id="exampleApp">
+			<section id="main">
+			    <tomalec-sortable-list>
+					<li style="order: 0;">zero</li>
+					<li style="order: 1;"><div>one</div></li>
+
+				    <tomalec-sortable-list style="order:2;">
+						<li style="order: 0;">_zero</li>
+						<li style="order: 1;">_one</li>
+						<li style="order: 2;">_two</li>
+						<footer sortable="false" class="footer" style="order: 3;">
+							<dl>
+								<dt>tomalec-sortable-list<strong>.order</strong></dt>
+								<dd>order of sorted items<br/><strong class="newOrder"></strong></dd>
+								<dt>tomalec-sortable-list<strong>@change</strong></dt>
+								<dd>event triggered after every change<br/><strong class="change"></strong></dd>
+							</dl>
+						</footer>
+					</tomalec-sortable-list>
+					<li style="order: 3;">three</li>
+					<footer sortable="false" class="footer" style="order: 4;">
+						<dl>
+							<dt>tomalec-sortable-list<strong>.order</strong></dt>
+							<dd>order of sorted items<br/><strong class="newOrder"></strong></dd>
+							<dt>tomalec-sortable-list<strong>@change</strong></dt>
+							<dd>event triggered after every change<br/><strong class="change"></strong></dd>
+						</dl>
+					</footer>
+				</tomalec-sortable-list>
+			</section>
+		</section>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+		[].forEach.call( document.querySelectorAll('tomalec-sortable-list'), function(list){
+			list.addEventListener('change', function(e) {
+				var footer = this.children[this.childElementCount-1];
+				footer.querySelector('.newOrder').innerHTML = e.detail.order;
+				footer.querySelector('.change').innerHTML = JSON.stringify(e.detail);
+				console.log("order changed:", e.detail);
+			});
+		});
+      // Needed to detect model changes if Object.observe
+      // is not available in the JS VM.
+      Platform.performMicrotaskCheckpoint();
+    });
+    </script>
+	</body>
+</html>
