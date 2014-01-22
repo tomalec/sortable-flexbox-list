@@ -14,44 +14,62 @@
 			<h1>Sortable List</h1>
 		</header>
 		<section id="exampleApp">
+			<template id="buggyapp-tmpl" bind>
+				<style scoped>
+					input{width: 3em;}
+				</style>
 			<section id="main">
 				<button>Change CSS `flex-direction`</button>
 			    <tomalec-sortable-list unresolved>
-					<li style="order: 0; height: 1em"><button>zero</button></li>
-					<li style="order: 1; height: 2em"><input value="one"/></li>
-					<li style="order: 2; height: 3em">two</li>
-					<li sortable="false" style="order: 3; height: 4em">three</li>
-					<li style="order: 4; height: 5em">four</li>
-					<strong style="order: 5;">five</strong>
-					<li style="order: 6; height: 7em">six</li>
-					<li style="order: 7; height: 8em">seven</li>
-					<li style="order: 8; height: 9em">eight</li>
-			    	<button style="order: 9;">nine</button>
+					<template repeat="{{ items }}">
+                		<li style="order: {{userOrder$}};">desc <input value="{{desc}}"><br/> userOrder$ <input value="{{userOrder$}}"></li>
+            		</template>
 				</tomalec-sortable-list>
 			</section>
 			<footer id="footer">
 				<dl>
 					<dt>tomalec-sortable-list<strong>.order</strong></dt>
-					<dd>order of sorted items<br/><strong id="newOrder"></strong></dd>
+					<dd>order of sorted items<br/><strong id="newOrder">
+					<template repeat="{{ items }}">{{userOrder$}} </template></strong></dd>
 					<dt>tomalec-sortable-list<strong>@change</strong></dt>
 					<dd>event triggered after every change<br/><strong id="change"></strong></dd>
 				</dl>
 			</footer>
+			</template>
 		</section>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-		document.querySelector('tomalec-sortable-list').addEventListener('change', function(e) {
-			document.querySelector('#newOrder').innerHTML = e.detail.order;
-			document.querySelector('#change').innerHTML = JSON.stringify(e.detail);
-			console.log("order changed:", e.detail);
-		});
-		document.querySelector('button').addEventListener('click', function(e) {
-			document.querySelector('tomalec-sortable-list').style["flex-direction"] = 
-				document.querySelector('tomalec-sortable-list').style["flex-direction"] == "column"?
-					"row" : "column";
-		});
+
+		var t2 = document.getElementById('buggyapp-tmpl');
+		t2.model = {
+		    items: [{
+		        "desc": "zero",
+		        "userOrder$": 0
+		    }, {
+		        "desc": "one",
+		        "userOrder$": 1
+		    }, {
+		        "desc": "two",
+		        "userOrder$": 2
+		    }, {
+		        "desc": "three",
+		        "userOrder$": 3
+		    }, {
+		        "desc": "four",
+		        "userOrder$": 4
+		    }, {
+		        "desc": "five",
+		        "userOrder$": 5
+		    }, {
+		        "desc": "six",
+		        "userOrder$": 6
+		    }, {
+		        "desc": "seven",
+		        "userOrder$": 7
+		    }]
+		};
       // Needed to detect model changes if Object.observe
       // is not available in the JS VM.
       Platform.performMicrotaskCheckpoint();
