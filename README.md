@@ -42,11 +42,6 @@ Attribute  | Options                   | Default             | Description
 ---        | ---                       | ---                 | ---
 `order`    | *string*                  | "1,...,n"           | Coma separated sequence of elements' order. By default as is in HTML. <br/> Please note that this is **NOT a list of sorted indexes**, rather a map where the key is index from HTML, and value is CSS order - position on screen.
 
-For child nodes:
-
-Attribute  | Options                   | Default             | Description
----        | ---                       | ---                 | ---
-`sortable` | *boolean*                 | true                | Set to `false` to disable drag'n'drop for given child node.
 
 ## Properties
 
@@ -67,7 +62,8 @@ Event Name  | event.detail                   					| Description
 ## History
 
 * v0.0.20140124 January 24, 2014
-	* Preloaded order
+	* Preloaded order,
+	* `sortable="false"` feature removed, as the concept of non-sortable, sortable item is deffinately unclear.
 
 * v0.0.20140122 January 22, 2014
 	* Nested lists

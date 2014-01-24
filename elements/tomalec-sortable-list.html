@@ -47,16 +47,13 @@
                 //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
                 while(len--){
                     currentItem = listItems[len];
-                    //currentItem.draggable = (listItems[len].getAttribute("sortable")!=="false");
-                    if( listItems[len].getAttribute("sortable") !== "false" ){
-                        currentItem.draggable = true;
-                        currentItem.addEventListener('dragstart', this.dragStart.bind(this), false);
-                        currentItem.addEventListener('dragenter', this.dragEnter.bind(this), false);
-                        currentItem.addEventListener('dragover', this.dragOver.bind(this), false);
-                        currentItem.addEventListener('dragleave', this.dragLeave.bind(this), false);
-                        currentItem.addEventListener('drop', this.drop.bind(this), false);
-                        currentItem.addEventListener('dragend', this.dragEnd.bind(this), false);
-                    }
+                    currentItem.draggable = true;
+                    currentItem.addEventListener('dragstart', this.dragStart.bind(this), false);
+                    currentItem.addEventListener('dragenter', this.dragEnter.bind(this), false);
+                    currentItem.addEventListener('dragover', this.dragOver.bind(this), false);
+                    currentItem.addEventListener('dragleave', this.dragLeave.bind(this), false);
+                    currentItem.addEventListener('drop', this.drop.bind(this), false);
+                    currentItem.addEventListener('dragend', this.dragEnd.bind(this), false);
                 }
             },
             dragStart: function dragStart(event) {

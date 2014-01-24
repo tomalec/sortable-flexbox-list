@@ -73,11 +73,9 @@ li.move{
     opacity: .5;
 }
 
-tomalec-sortable-list>[sortable=false]{
-	opacity: .5;
-	cursor: no-drop;
+input{
+	width: 3em;
 }
-
 tomalec-sortable-list[unresolved]{
 	height: 1em;
 }

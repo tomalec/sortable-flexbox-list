@@ -90,9 +90,6 @@ tomalec-sortable-list tomalec-sortable-list{
 	width: 70%;
 	padding-top: 12px;
 }
-tomalec-sortable-list>[sortable=false]{
-	cursor: no-drop;
-}
 
 tomalec-sortable-list[unresolved]{
 	height: 1em;
