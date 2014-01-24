@@ -1,18 +1,40 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="tomalec-sortable-list" attributes="data src">
+<polymer-element name="tomalec-sortable-list" attributes="order orderArray">
 	<template>
 		<link rel="stylesheet" href="tomalec-sortable-list.css">
 		<content></content>
 	</template>
 	 <script>
         Polymer('tomalec-sortable-list', {
-        	order: null,
+            order: "",
 
             dragged: null,
 
+            orderChanged: function orderChanged( from, to, what){
+                // debugger
+                // console.warn("orderChanged", this, from, to, what);
+                var orderArray = to.split(","),
+                    listItems = this.children;
+                    len = orderArray.length
+
+                while(len--){
+                    currentItem = listItems[len];
+                    currentItem.style.order = orderArray[len];
+                }
+            },
             ready: function () {
+                var orderArray = [], len;
+
+                if( this.order=="" && this.childElementCount >0 ){
+                    len = this.childElementCount;
+                    while (len--) {
+                      orderArray[len] = len
+                    }
+                    this.order = orderArray.join(",");
+                }
+
                 this.makeDraggable();
             },
             makeDraggable: function() {
@@ -22,18 +44,16 @@
                 //debugger
                 listItems = this.children;
                 len = listItems.length;
+                //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
                 while(len--){
                     currentItem = listItems[len];
-                    //currentItem.draggable = (listItems[len].getAttribute("sortable")!=="false");
-                    if( listItems[len].getAttribute("sortable") !== "false" ){
-                        currentItem.draggable = true;
-                        currentItem.addEventListener('dragstart', this.dragStart.bind(this), false);
-                        currentItem.addEventListener('dragenter', this.dragEnter.bind(this), false);
-                        currentItem.addEventListener('dragover', this.dragOver.bind(this), false);
-                        currentItem.addEventListener('dragleave', this.dragLeave.bind(this), false);
-                        currentItem.addEventListener('drop', this.drop.bind(this), false);
-                        currentItem.addEventListener('dragend', this.dragEnd.bind(this), false);
-                    }
+                    currentItem.draggable = true;
+                    currentItem.addEventListener('dragstart', this.dragStart.bind(this), false);
+                    currentItem.addEventListener('dragenter', this.dragEnter.bind(this), false);
+                    currentItem.addEventListener('dragover', this.dragOver.bind(this), false);
+                    currentItem.addEventListener('dragleave', this.dragLeave.bind(this), false);
+                    currentItem.addEventListener('drop', this.drop.bind(this), false);
+                    currentItem.addEventListener('dragend', this.dragEnd.bind(this), false);
                 }
             },
             dragStart: function dragStart(event) {
@@ -91,40 +111,36 @@
             },
 
             moveItem: function moveItem(from, to){
-                //d console.log("move", from, to, this)
-            	var listItems, len, currentItem, newOrder=[];
+                console.log("move", from, to, this)
+            	var orderArray, len;
             	if( from == to ){
             		return;
             	}
-            	listItems = this.children;
-            	len = listItems.length;
+            	orderArray = this.order.split(",");
+            	len = orderArray.length;
             	if (from < to){
             		while(len--){
-            			currentItem = listItems[len];
-            			if( currentItem.style.order > from && currentItem.style.order < to){
-            				currentItem.style.order --;
-            			} else if (currentItem.style.order == from){
-            				currentItem.style.order  = to - 1;
+            			if( orderArray[len] > from && orderArray[len] < to){
+            				orderArray[len]--;
+            			} else if (orderArray[len] == from){
+            				orderArray[len]  = to - 1;
             			}
-                        newOrder.push(currentItem.style.order);
             			
             		}
             	} else {
             		while(len--){
-            			currentItem = listItems[len];
-            			if( currentItem.style.order >= to && currentItem.style.order < from){
-            				currentItem.style.order++;
-            			} else if (currentItem.style.order == from){
-            				currentItem.style.order = to;
+            			if( orderArray[len] >= to && orderArray[len] < from){
+            				orderArray[len]++;
+            			} else if (orderArray[len] == from){
+            				orderArray[len] = to;
             			}
-                        newOrder.push(currentItem.style.order);
             			
             		}
             	}
-                this.order = newOrder.reverse();
+                this.order = orderArray.join(",");
 
                 //d console.log("moved", this.order );
-                this.fire('change', {from: from, to: to, order: this.order}, null, false);
+                this.fire('change', {from: from, to: to, orderArray: orderArray}, null, false);
 
             }
 

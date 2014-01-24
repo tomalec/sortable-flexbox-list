@@ -10,6 +10,7 @@
 >> Advanced examples:
 >>
 >> * [Nested list](http://tomalec.github.io/sortable-flexbox-list/examples/nested.html)
+>> * [Preloaded order](http://tomalec.github.io/sortable-flexbox-list/examples/pre-ordered.html)
 
 ## Usage
 
@@ -29,38 +30,40 @@
 
 	```html
 	<tomalec-sortable-list>
-		<li style="order: 0;">zero</li>
-		<li style="order: 1;">one</li>
-		<li style="order: 2;">two</li>
+		<li>zero</li>
+		<li>one</li>
+		<li>two</li>
 	</tomalec-sortable-list>
 	```
 
 ## Options
 
-For child nodes:
-
 Attribute  | Options                   | Default             | Description
 ---        | ---                       | ---                 | ---
-`sortable` | *boolean*                 | true                | Set to `false` to disable drag'n'drop for given child node.
+`order`    | *string*                  | "1,...,n"           | Coma separated sequence of elements' order. By default as is in HTML. <br/> Please note that this is **NOT a list of sorted indexes**, rather a map where the key is index from HTML, and value is CSS order - position on screen.
+
 
 ## Properties
 
-For child nodes:
 
 Property  | Type                   | Description
 ---       | ---                    | ---                 
-`order`   | *array<number>*        | Array reflecting child node's order.
+`order`   | *string*        	   | Coma separated sequence of elements' order.
 
 ## Events
 
 For child nodes:
 
-Event Name  | event.detail                   | Description
----         | ---                    | ---                 
-`change`    | `{"from": 0,	"to":1,	"order":["1","0","2"]}`| Triggered after every order change.
+Event Name  | event.detail                   					| Description
+---         | ---                    							| ---                 
+`change`    | `{"from": 0,	"to":1,	"orderArray":["1","0","2"]}`| Triggered after every order change.
 
 
 ## History
+
+* v0.0.20140124 January 24, 2014
+	* Preloaded order,
+	* `sortable="false"` feature removed, as the concept of non-sortable, sortable item is deffinately unclear.
 
 * v0.0.20140122 January 22, 2014
 	* Nested lists

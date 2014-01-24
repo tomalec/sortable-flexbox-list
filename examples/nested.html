@@ -23,7 +23,7 @@
 						<li style="order: 0;">_zero</li>
 						<li style="order: 1;">_one</li>
 						<li style="order: 2;">_two</li>
-						<footer sortable="false" class="footer" style="order: 3;">
+						<footer class="footer" style="order: 3;">
 							<dl>
 								<dt>tomalec-sortable-list<strong>.order</strong></dt>
 								<dd>order of sorted items<br/><strong class="newOrder"></strong></dd>
@@ -33,7 +33,7 @@
 						</footer>
 					</tomalec-sortable-list>
 					<li style="order: 3;">three</li>
-					<footer sortable="false" class="footer" style="order: 4;">
+					<footer class="footer" style="order: 4;">
 						<dl>
 							<dt>tomalec-sortable-list<strong>.order</strong></dt>
 							<dd>order of sorted items<br/><strong class="newOrder"></strong></dd>
@@ -51,7 +51,7 @@
 		[].forEach.call( document.querySelectorAll('tomalec-sortable-list'), function(list){
 			list.addEventListener('change', function(e) {
 				var footer = this.children[this.childElementCount-1];
-				footer.querySelector('.newOrder').innerHTML = e.detail.order;
+				footer.querySelector('.newOrder').innerHTML = this.orderArray;
 				footer.querySelector('.change').innerHTML = JSON.stringify(e.detail);
 				console.log("order changed:", e.detail);
 			});
