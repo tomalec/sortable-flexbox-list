@@ -51,7 +51,7 @@
 		[].forEach.call( document.querySelectorAll('tomalec-sortable-list'), function(list){
 			list.addEventListener('change', function(e) {
 				var footer = this.children[this.childElementCount-1];
-				footer.querySelector('.newOrder').innerHTML = e.detail.order;
+				footer.querySelector('.newOrder').innerHTML = this.orderArray;
 				footer.querySelector('.change').innerHTML = JSON.stringify(e.detail);
 				console.log("order changed:", e.detail);
 			});

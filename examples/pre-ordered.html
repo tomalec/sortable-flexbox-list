@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Polymer • SortableList</title>
+		<link rel="stylesheet" href="pre-ordered.css">
+
+    	<script src="../bower_components/platform/platform.js"></script>
+   		<link rel="import" href="../elements/tomalec-sortable-list.html">
+  	</head>
+  	<body>
+		<header>
+			<h1>Pre-ordered List</h1>
+		</header>
+		<h2>
+			As a string<br/>
+			<pre><code>&lt;tomalec-sortable-list order="4,3,2,0,1"></code></pre>
+		</h2>
+		Please note that <code>order</code> is a sequence of elements' order. So the key is index from HTML, and value is CSS order - position on screen.
+		<section>
+		    <tomalec-sortable-list unresolved order="4,3,2,0,1">
+				<li>zero</li>
+				<li>one</li>
+				<li>two</li>
+				<li sortable="false">three</li>
+				<li>four</li>
+			</tomalec-sortable-list>
+			<footer id="footer">
+				<dl>
+					<dt>tomalec-sortable-list<strong>.order</strong></dt>
+					<dd>order of sorted items<br/><strong id="newOrder"></strong></dd>
+					<dt>tomalec-sortable-list<strong>@change</strong></dt>
+					<dd>event triggered after every change<br/><strong id="change"></strong></dd>
+				</dl>
+			</footer>
+		</section>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+		document.querySelector('tomalec-sortable-list').addEventListener('change', function(e) {
+			document.querySelector('#newOrder').innerHTML = this.orderArray;
+			document.querySelector('#change').innerHTML = JSON.stringify(e.detail);
+			console.log("order changed:", e.detail);
+		});
+      // Needed to detect model changes if Object.observe
+      // is not available in the JS VM.
+      Platform.performMicrotaskCheckpoint();
+    });
+    </script>
+
+	</body>
+</html>
