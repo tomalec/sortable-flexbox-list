@@ -35,7 +35,29 @@ h1 {
 	-o-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
 }
+pre{
+	margin: 2px;
+}
+code{
+	background-color: #444;
+	color: #EEE;
 
+	padding: 1px;
+	margin: 0 0 10px;
+	font-size: 13px;
+	line-height: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+code.block{
+	display: block;
+	background-color: #555;
+	color: #EEE;
+}
 .hidden{
 	display:none;
 }
@@ -47,7 +69,20 @@ h1 {
 dl{
 	margin: 0;
 }
-li{
+a{
+	color: #BBB;
+}
+a:hover{
+	color: #EEE;
+}
+a:visited{
+	color: #999;
+}
+input{
+	width: 3em;
+}
+
+tomalec-sortable-list li{
 	color: rgb(57, 57, 57);
 	background-color: #fff;
 	border: 1px solid #b9b9b9;
@@ -61,20 +96,16 @@ li{
 	font-size: 14px;
     list-style: none;
 }
-li:hover{
+tomalec-sortable-list li:hover{
     border-color:#2b7cab;
     transition: border-color 200ms ease-in-out;
 }
-li.over{
+tomalec-sortable-list li.over{
     background: #c0c0c0;
     transition: background 200ms ease-in-out;
 }
-li.move{
+tomalec-sortable-list li.move{
     opacity: .5;
-}
-
-input{
-	width: 3em;
 }
 tomalec-sortable-list[unresolved]{
 	height: 1em;

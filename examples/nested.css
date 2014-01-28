@@ -36,14 +36,44 @@ h1 {
 	-o-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
 }
+pre{
+	margin: 2px;
+}
+code{
+	background-color: #444;
+	color: #EEE;
 
+	padding: 1px;
+	margin: 0 0 10px;
+	font-size: 13px;
+	line-height: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+code.block{
+	display: block;
+	background-color: #555;
+	color: #EEE;
+}
 .hidden{
 	display:none;
 }
-
 /* IE doesn't support the hidden attribute */
 [hidden] {
 	display: none;
+}
+a{
+	color: #BBB;
+}
+a:hover{
+	color: #EEE;
+}
+a:visited{
+	color: #999;
 }
 
 #exampleApp {
@@ -57,7 +87,7 @@ h1 {
 dl{
 	margin: 0;
 }
-li{
+tomalec-sortable-list li{
 	color: rgb(57, 57, 57);
 	background-color: #fff;
 	border: 1px solid #b9b9b9;
@@ -96,17 +126,17 @@ tomalec-sortable-list[unresolved]{
 }
 
 tomalec-sortable-list:hover,
-li:hover{
+tomalec-sortable-list li:hover{
     border-color:#2b7cab;
     transition: border-color 200ms ease-in-out;
 }
 tomalec-sortable-list.over,
-li.over{
+tomalec-sortable-list li.over{
     background: #c0c0c0;
     transition: background 200ms ease-in-out;
 }
 tomalec-sortable-list.move,
-li.move{
+tomalec-sortable-list li.move{
     opacity: .5;
 }
 

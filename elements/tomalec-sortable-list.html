@@ -7,6 +7,39 @@
 		<content></content>
 	</template>
 	 <script>
+     (function tomalecSortableList(){
+
+        function calculateMove(from, to, oldOrder){
+            var newOrder, len;
+            if( from == to ){
+                return;
+            }
+            newOrder = oldOrder.split(",");
+            len = newOrder.length;
+            if (from < to){
+                while(len--){
+                    if( newOrder[len] > from && newOrder[len] < to){
+                        newOrder[len]--;
+                    } else if (newOrder[len] == from){
+                        newOrder[len]  = to - 1;
+                    }
+                    
+                }
+            } else {
+                while(len--){
+                    if( newOrder[len] >= to && newOrder[len] < from){
+                        newOrder[len]++;
+                    } else if (newOrder[len] == from){
+                        newOrder[len] = to;
+                    }
+                    
+                }
+            }
+
+            return newOrder;
+
+        }
+
         Polymer('tomalec-sortable-list', {
             order: "",
 
@@ -23,6 +56,7 @@
                     currentItem = listItems[len];
                     currentItem.style.order = orderArray[len];
                 }
+                this.fire('change', {from: from, to: to, orderArray: orderArray}, null, false);
             },
             ready: function () {
                 var orderArray = [], len;
@@ -91,7 +125,8 @@
             },
             drop: function drop(event) {
                 //d console.log("drop this.dragged",  this.dragged, this);
-                var from = event.dataTransfer.getData('flextasks/from');
+                var from = event.dataTransfer.getData('flextasks/from'),
+                    newOrder;
                 //debugger;
                 event.currentTarget.classList.remove('over');
                 
@@ -101,50 +136,27 @@
                     !isNaN(parseInt(from),10) ){
                     event.stopPropagation();
                     console.log("drop", this, arguments, 'from',from, 'to', event.currentTarget.style.order, this.dragged,this.childElementCount);
-                    this.moveItem( this.dragged, event.currentTarget.style.order);
+
+                    newOrder = calculateMove( this.dragged, event.currentTarget.style.order, this.order);
+
+                    this.order = newOrder.join(",");
+                    this.fire('move', {
+                        from: this.dragged,
+                        to: event.currentTarget.style.order,
+                        orderArray: newOrder,
+                        item: event.currentTarget
+                    }, null, false);
+
                     this.dragged = null;
                 }
                 return false;
             },
             dragEnd: function(event) {
             	//d console.log("dragEnd", this, arguments);
-            },
-
-            moveItem: function moveItem(from, to){
-                console.log("move", from, to, this)
-            	var orderArray, len;
-            	if( from == to ){
-            		return;
-            	}
-            	orderArray = this.order.split(",");
-            	len = orderArray.length;
-            	if (from < to){
-            		while(len--){
-            			if( orderArray[len] > from && orderArray[len] < to){
-            				orderArray[len]--;
-            			} else if (orderArray[len] == from){
-            				orderArray[len]  = to - 1;
-            			}
-            			
-            		}
-            	} else {
-            		while(len--){
-            			if( orderArray[len] >= to && orderArray[len] < from){
-            				orderArray[len]++;
-            			} else if (orderArray[len] == from){
-            				orderArray[len] = to;
-            			}
-            			
-            		}
-            	}
-                this.order = orderArray.join(",");
-
-                //d console.log("moved", this.order );
-                this.fire('change', {from: from, to: to, orderArray: orderArray}, null, false);
-
             }
 
 
         });
+    }());
     </script>
 </polymer-element>

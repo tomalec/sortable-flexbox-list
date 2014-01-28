@@ -35,8 +35,17 @@
 					<dd>order of sorted items<br/><strong id="newOrder"></strong></dd>
 					<dt>tomalec-sortable-list<strong>@change</strong></dt>
 					<dd>event triggered after every change<br/><strong id="change"></strong></dd>
+					<dt>tomalec-sortable-list<strong>@move</strong></dt>
+					<dd>event triggered after every move<br/><strong id="move"></strong></dd>
 				</dl>
 			</footer>
+		</section>
+		<section>
+			<h2>Other examples</h2>
+			<tomalec-sortable-list id="otherExamples">
+				<li><a href="/examples/nested.html">Nested list</a></li>
+				<li><a href="/examples/pre-ordered.html">Pre-loaded order</a></li>
+			</tomalec-sortable-list>
 		</section>
 
     <script>
@@ -46,6 +55,12 @@
 			document.querySelector('#newOrder').innerHTML = this.order;
 			document.querySelector('#change').innerHTML = JSON.stringify(e.detail);
 			console.log("order changed:", e.detail);
+		});
+		document.querySelector('tomalec-sortable-list').addEventListener('move', function(e) {
+			console.log("item moved:", e.detail);
+			e.detail.item = e.detail.item.toString();
+			document.querySelector('#move').innerHTML = JSON.stringify(e.detail);
+			
 		});
 		document.querySelector('button').addEventListener('click', function(e) {
 			document.querySelector('tomalec-sortable-list').style["flex-direction"] = 
