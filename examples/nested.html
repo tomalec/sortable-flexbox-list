@@ -3,7 +3,7 @@
   	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Polymer • Nested SortableList</title>
+		<title>Polymer • SortableList •  Nested</title>
 		<link rel="stylesheet" href="nested.css">
 
     	<script src="../bower_components/platform/platform.js"></script>
@@ -26,9 +26,17 @@
 						<footer class="footer" style="order: 3;">
 							<dl>
 								<dt>tomalec-sortable-list<strong>.order</strong></dt>
-								<dd>order of sorted items<br/><strong class="newOrder"></strong></dd>
+								<dd>order of sorted items
+									<code class="block newOrder"></code></pre>
+								</dd>
 								<dt>tomalec-sortable-list<strong>@change</strong></dt>
-								<dd>event triggered after every change<br/><strong class="change"></strong></dd>
+								<dd>event triggered after every change
+									<code class="block change"></code></pre>
+								</dd>
+								<dt>tomalec-sortable-list<strong>@move</strong></dt>
+								<dd>event triggered after every move
+									<code class="block move"></code></pre>
+								</dd>
 							</dl>
 						</footer>
 					</tomalec-sortable-list>
@@ -36,24 +44,46 @@
 					<footer class="footer" style="order: 4;">
 						<dl>
 							<dt>tomalec-sortable-list<strong>.order</strong></dt>
-							<dd>order of sorted items<br/><strong class="newOrder"></strong></dd>
+							<dd>order of sorted items
+								<pre><code class="block newOrder"></code></pre>
+							</dd>
 							<dt>tomalec-sortable-list<strong>@change</strong></dt>
-							<dd>event triggered after every change<br/><strong class="change"></strong></dd>
+							<dd>event triggered after every change
+								<pre><code class="block change"></code></pre>
+							</dd>
+							<dt>tomalec-sortable-list<strong>@move</strong></dt>
+							<dd>event triggered after every move
+								<pre><code class="block move"></code></pre>
+							</dd>
 						</dl>
 					</footer>
 				</tomalec-sortable-list>
 			</section>
+		</section>
+		<section>
+			<h2>Other examples</h2>
+			<ul>
+				<li><a href="../index.html">Basic one</a></li>
+				<li><a href="plain.html">Plain</a></li>
+				<li><a href="pre-ordered.html">Pre-loaded order</a></li>
+				<li><a href="dynamicAdd.html">Dynamic add nodes</a></li>
+			</ul>
 		</section>
 
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
 		[].forEach.call( document.querySelectorAll('tomalec-sortable-list'), function(list){
+			var footer = list.children[list.childElementCount-1];
 			list.addEventListener('change', function(e) {
-				var footer = this.children[this.childElementCount-1];
-				footer.querySelector('.newOrder').innerHTML = this.orderArray;
+				footer.querySelector('.newOrder').innerHTML = this.order;
 				footer.querySelector('.change').innerHTML = JSON.stringify(e.detail);
 				console.log("order changed:", e.detail);
+			});
+			list.addEventListener('move', function(e) {
+				console.log("item moved:", e.detail);
+				e.detail.item = e.detail.item.toString();
+				footer.querySelector('.move').innerHTML = JSON.stringify(e.detail);				
 			});
 		});
       // Needed to detect model changes if Object.observe

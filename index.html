@@ -32,11 +32,28 @@
 			<footer id="footer">
 				<dl>
 					<dt>tomalec-sortable-list<strong>.order</strong></dt>
-					<dd>order of sorted items<br/><strong id="newOrder"></strong></dd>
+					<dd>order of sorted items
+						<pre><code class="block" id="newOrder"></code></pre>
+					</dd>
 					<dt>tomalec-sortable-list<strong>@change</strong></dt>
-					<dd>event triggered after every change<br/><strong id="change"></strong></dd>
+					<dd>event triggered after every change
+						<pre><code class="block" id="change"></code></pre>
+					</dd>
+					<dt>tomalec-sortable-list<strong>@move</strong></dt>
+					<dd>event triggered after every move
+						<pre><code class="block" id="move"></code></pre>
+					</dd>
 				</dl>
 			</footer>
+		</section>
+		<section>
+			<h2>Other examples</h2>
+			<ul>
+				<li><a href="examples/plain.html">Plain</a></li>
+				<li><a href="examples/nested.html">Nested</a></li>
+				<li><a href="examples/pre-ordered.html">Pre-loaded order</a></li>
+				<li><a href="examples/dynamicAdd.html">Dynamic add nodes</a></li>
+			</ul>
 		</section>
 
     <script>
@@ -46,6 +63,12 @@
 			document.querySelector('#newOrder').innerHTML = this.order;
 			document.querySelector('#change').innerHTML = JSON.stringify(e.detail);
 			console.log("order changed:", e.detail);
+		});
+		document.querySelector('tomalec-sortable-list').addEventListener('move', function(e) {
+			console.log("item moved:", e.detail);
+			e.detail.item = e.detail.item.toString();
+			document.querySelector('#move').innerHTML = JSON.stringify(e.detail);
+			
 		});
 		document.querySelector('button').addEventListener('click', function(e) {
 			document.querySelector('tomalec-sortable-list').style["flex-direction"] = 

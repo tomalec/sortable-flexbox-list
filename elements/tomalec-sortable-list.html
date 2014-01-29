@@ -7,6 +7,53 @@
 		<content></content>
 	</template>
 	 <script>
+     (function tomalecSortableList(){
+
+        function calculateMove(from, to, oldOrder){
+            var newOrder, len;
+            if( from == to ){
+                return;
+            }
+            newOrder = oldOrder.split(",");
+            len = newOrder.length;
+            if (from < to){
+                while(len--){
+                    if( newOrder[len] > from && newOrder[len] < to){
+                        newOrder[len]--;
+                    } else if (newOrder[len] == from){
+                        newOrder[len]  = to - 1;
+                    }
+                    
+                }
+            } else {
+                while(len--){
+                    if( newOrder[len] >= to && newOrder[len] < from){
+                        newOrder[len]++;
+                    } else if (newOrder[len] == from){
+                        newOrder[len] = to;
+                    }
+                    
+                }
+            }
+
+            return newOrder;
+
+        }
+        /**
+         * Create an array with number range `[from, from+1, ..., to]`.
+         * @param  {Number} from first element in range
+         * @param  {Number} to last number in range
+         * @return {Array<Number>}
+         */
+        function range(from, to){
+            var len = to - from +1,
+                range = [];
+            while (len--) {
+              range[len] = len + from;
+            }
+            return range;
+        }
+
         Polymer('tomalec-sortable-list', {
             order: "",
 
@@ -21,28 +68,55 @@
 
                 while(len--){
                     currentItem = listItems[len];
-                    currentItem.style.order = orderArray[len];
+                    //change if needed
+                    if(currentItem.style.order != orderArray[len]){
+                        currentItem.style.order = orderArray[len];
+                    }
                 }
+                this.fire('change', {from: from, to: to, orderArray: orderArray}, null, false);
             },
             ready: function () {
-                var orderArray = [], len;
+                var self = this;
 
                 if( this.order=="" && this.childElementCount >0 ){
-                    len = this.childElementCount;
-                    while (len--) {
-                      orderArray[len] = len
-                    }
-                    this.order = orderArray.join(",");
+                    this.order = range(0,this.childElementCount-1).join(",");
                 }
+                // Observe changes
+                // TODO: Make it cleaner
+                // create an observer instance
+                var observer = new MutationObserver(function(mutations) {
+                  mutations.forEach(function(mutation) {
+                    var newOrder;
+                    console.log("observation", mutation.type, arguments, mutations);
+                    if(mutation.addedNodes){
+                        newOrder = range( self.childElementCount - mutation.addedNodes.length, self.childElementCount  -1 );
+                        //debugger;
+                        if(mutation.nextSibling === null){
+                            self.order = (self.order ? self.order + ",":"") + newOrder.join(',');
+                        } else if(mutation.previousSibling === null){
+                            self.order = newOrder.join(',') + ( self.order ? "," + self.order :"");
+                        }
+                    }
+                    self.makeDraggable( mutation.addedNodes );
+                  });    
+                });
+                // pass in the target node, as well as the observer options
+                observer.observe(this, { childList: true });
+                // end of: Observe changes
 
                 this.makeDraggable();
             },
-            makeDraggable: function() {
+            /**
+             * Make list items draggable. Given set, or all children.
+             * @param  {NodeList} [listItems] If not given `this.children`will be used
+             * @return {[type]}
+             */
+            makeDraggable: function(listItems) {
                 //d console.info("makeDraggable", this, arguments)
                 //debugger
-                var listItems, len, currentItem;
+                var len, currentItem;
                 //debugger
-                listItems = this.children;
+                listItems = listItems || this.children;
                 len = listItems.length;
                 //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
                 while(len--){
@@ -91,7 +165,8 @@
             },
             drop: function drop(event) {
                 //d console.log("drop this.dragged",  this.dragged, this);
-                var from = event.dataTransfer.getData('flextasks/from');
+                var from = event.dataTransfer.getData('flextasks/from'),
+                    newOrder;
                 //debugger;
                 event.currentTarget.classList.remove('over');
                 
@@ -101,50 +176,27 @@
                     !isNaN(parseInt(from),10) ){
                     event.stopPropagation();
                     console.log("drop", this, arguments, 'from',from, 'to', event.currentTarget.style.order, this.dragged,this.childElementCount);
-                    this.moveItem( this.dragged, event.currentTarget.style.order);
+
+                    newOrder = calculateMove( this.dragged, event.currentTarget.style.order, this.order);
+
+                    this.order = newOrder.join(",");
+                    this.fire('move', {
+                        from: this.dragged,
+                        to: event.currentTarget.style.order,
+                        orderArray: newOrder,
+                        item: event.currentTarget
+                    }, null, false);
+
                     this.dragged = null;
                 }
                 return false;
             },
             dragEnd: function(event) {
             	//d console.log("dragEnd", this, arguments);
-            },
-
-            moveItem: function moveItem(from, to){
-                console.log("move", from, to, this)
-            	var orderArray, len;
-            	if( from == to ){
-            		return;
-            	}
-            	orderArray = this.order.split(",");
-            	len = orderArray.length;
-            	if (from < to){
-            		while(len--){
-            			if( orderArray[len] > from && orderArray[len] < to){
-            				orderArray[len]--;
-            			} else if (orderArray[len] == from){
-            				orderArray[len]  = to - 1;
-            			}
-            			
-            		}
-            	} else {
-            		while(len--){
-            			if( orderArray[len] >= to && orderArray[len] < from){
-            				orderArray[len]++;
-            			} else if (orderArray[len] == from){
-            				orderArray[len] = to;
-            			}
-            			
-            		}
-            	}
-                this.order = orderArray.join(",");
-
-                //d console.log("moved", this.order );
-                this.fire('change', {from: from, to: to, orderArray: orderArray}, null, false);
-
             }
 
 
         });
+    }());
     </script>
 </polymer-element>

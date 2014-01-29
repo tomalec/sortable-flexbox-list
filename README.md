@@ -11,6 +11,7 @@
 >>
 >> * [Nested list](http://tomalec.github.io/sortable-flexbox-list/examples/nested.html)
 >> * [Preloaded order](http://tomalec.github.io/sortable-flexbox-list/examples/pre-ordered.html)
+>> * [Dynamic list](http://tomalec.github.io/sortable-flexbox-list/examples/dynamicAdd.html)
 
 ## Usage
 
@@ -48,22 +49,32 @@ Attribute  | Options                   | Default             | Description
 
 Property  | Type                   | Description
 ---       | ---                    | ---                 
-`order`   | *string*        	   | Coma separated sequence of elements' order.
+`order`   | *string*        	   | Coma separated sequence of elements' order. See above.
 
 ## Events
 
 For child nodes:
 
-Event Name  | event.detail                   					| Description
----         | ---                    							| ---                 
-`change`    | `{"from": 0,	"to":1,	"orderArray":["1","0","2"]}`| Triggered after every order change.
+Event Name  | event.detail          	| Description
+---         | ---                 		| ---                 
+`change`    | 							| Triggered after every order change.
+			| *String* `from`			| Previous order
+			| *String* `to`				| New order
+			| *Array*  `orderArray`		| New order as array
+`move`      | 							| Triggered after every item move.
+			| *String* `from`			| Previous place in order,
+			| *String* `to`				| New place in order,
+			| *Array*  `orderArray`		| New order as array,
+			| *EventTarget*  `item`		| DOM Node that was moved.
 
 
 ## History
 
-* v0.0.20140124 January 24, 2014
+* v0.0.20140129 January 29, 2014
 	* Preloaded order,
 	* `sortable="false"` feature removed, as the concept of non-sortable, sortable item is deffinately unclear.
+	* New `move` event
+	* Observe changes in DOM, dynamic adding new items to the list is now available
 
 * v0.0.20140122 January 22, 2014
 	* Nested lists

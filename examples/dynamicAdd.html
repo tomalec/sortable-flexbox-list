@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Polymer • SortableList • Dynamic</title>
+		<link rel="stylesheet" href="pre-ordered.css">
+
+    	<script src="../bower_components/platform/platform.js"></script>
+   		<link rel="import" href="../elements/tomalec-sortable-list.html">
+  	</head>
+  	<body>
+		<header>
+			<h1>Dynamic List</h1>
+		</header>
+		<h2>
+			<pre><code>&lt;tomalec-sortable-list>&lt;/tomalec-sortable-list></code></pre>
+		</h2>
+		Please note that new nodes will always be added as last in <code>order</code> even though you can add nodes into DOM as well at the beggining.
+		<section>
+		    <tomalec-sortable-list unresolved>
+			</tomalec-sortable-list>
+			<footer id="footer">
+				<button class="appendNew">Append New Item</button>
+				<button class="prependNew">Prepend New Item</button>
+				<button class="inTheMiddle">Add one in the middle.</button>
+				<dl>
+					<dt>tomalec-sortable-list<strong>.order</strong></dt>
+					<dd>order of sorted items
+						<code class="block newOrder"></code></dd>
+					<dt>tomalec-sortable-list<strong>@change</strong></dt>
+					<dd>event triggered after every change
+						<code class="block change"></code></dd>
+					<dt>tomalec-sortable-list<strong>@move</strong></dt>
+					<dd>event triggered after every move
+						<code class="block move"></code>
+					</dd>
+				</dl>
+			</footer>
+		</section>
+		<section>
+			<h3>Other examples</h3>
+			<ul>
+				<li><a href="../index.html">Basic one</a></li>
+				<li><a href="plain.html">Plain</a></li>
+				<li><a href="nested.html">Nested</a></li>
+				<li><a href="pre-ordered.html">Pre-loaded order</a></li>
+			</ul>
+		</section>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+		var list = document.querySelector('tomalec-sortable-list');
+		var nameCounter = 0;
+		document.querySelector('.appendNew').addEventListener('click', function(e) {
+	    	var li = document.createElement("li");
+	    	li.innerHTML = "appended " + (nameCounter++);
+			list.appendChild( li );
+		});
+		document.querySelector('.prependNew').addEventListener('click', function(e) {
+	    	var li = document.createElement("li");
+	    	li.innerHTML = "prepended " + (nameCounter++);
+			list.insertBefore( li, list.firstChild );
+		});
+		document.querySelector('.inTheMiddle').addEventListener('click', function(e) {
+	    	var li = document.createElement("li");
+	    	li.innerHTML = "new " + (nameCounter++);
+	    	list.insertBefore( li, list.children[Math.floor((list.childElementCount-1)/2)] );
+	    	console.warn("NOT SUPPORTED yet!")
+		});
+
+
+
+		//show events:
+		[].forEach.call( document.querySelectorAll('tomalec-sortable-list'), function(list){
+			var footer = list.nextElementSibling;
+			list.addEventListener('change', function(e) {
+				footer.querySelector('.newOrder').innerHTML = this.order;
+				footer.querySelector('.change').innerHTML = JSON.stringify(e.detail);
+				console.log("order changed:", e.detail);
+			});
+			list.addEventListener('move', function(e) {
+				console.log("item moved:", e.detail);
+				e.detail.item = e.detail.item.toString();
+				footer.querySelector('.move').innerHTML = JSON.stringify(e.detail);				
+			});
+		});
+
+      // Needed to detect model changes if Object.observe
+      // is not available in the JS VM.
+      Platform.performMicrotaskCheckpoint();
+    });
+    </script>
+
+	</body>
+</html>

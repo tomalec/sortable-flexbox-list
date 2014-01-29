@@ -19,16 +19,12 @@ body {
 	-o-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
-h1 {
+h1,h2 {
   /*	position: absolute;
 	top: -120px;*/
 	width: 100%;
-	font-size: 50px;
-	line-height: 50px;
 	font-weight: bold;
 	text-align: center;
-	color: #b3b3b3;
-	color: rgba(255, 255, 255, 0.3);
 	text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 	-webkit-text-rendering: optimizeLegibility;
 	-moz-text-rendering: optimizeLegibility;
@@ -36,12 +32,15 @@ h1 {
 	-o-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
 }
-pre{
-	margin: 2px;
+h1{
+	color: #b3b3b3;
+	color: rgba(255, 255, 255, 0.3);
+	font-size: 50px;
+	line-height: 50px;
 }
 code{
-	background-color: #444;
-	color: #EEE;
+	background-color: #333;
+	color: white;
 
 	padding: 1px;
 	margin: 0 0 10px;
@@ -54,26 +53,13 @@ code{
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
-code.block{
-	display: block;
-	background-color: #555;
-	color: #EEE;
-}
 .hidden{
 	display:none;
 }
+
 /* IE doesn't support the hidden attribute */
 [hidden] {
 	display: none;
-}
-a{
-	color: #BBB;
-}
-a:hover{
-	color: #EEE;
-}
-a:visited{
-	color: #999;
 }
 
 #exampleApp {
@@ -87,7 +73,7 @@ a:visited{
 dl{
 	margin: 0;
 }
-tomalec-sortable-list li{
+li{
 	color: rgb(57, 57, 57);
 	background-color: #fff;
 	border: 1px solid #b9b9b9;
@@ -105,8 +91,7 @@ tomalec-sortable-list li{
 tomalec-sortable-list{
 	background: #E3E3E3;
 	background: rgb(227, 227, 227, 0.9);
-	/*margin: 130px 0 40px 0;*/
-	margin: 4px;
+	margin: 20px 0 0 0;
 	border: 1px solid #ccc;
 	padding: 0;
 	position: relative;
@@ -126,41 +111,49 @@ tomalec-sortable-list[unresolved]{
 }
 
 tomalec-sortable-list:hover,
-tomalec-sortable-list li:hover{
+li:hover{
     border-color:#2b7cab;
     transition: border-color 200ms ease-in-out;
 }
 tomalec-sortable-list.over,
-tomalec-sortable-list li.over{
+li.over{
     background: #c0c0c0;
     transition: background 200ms ease-in-out;
 }
 tomalec-sortable-list.move,
-tomalec-sortable-list li.move{
+li.move{
     opacity: .5;
 }
 
-.footer {
-	display: block;
-	width: 100%;
+#footer {
 	color: #777;
 	background-color: #D0DADF;
 	box-shadow:
 				0 1px 2px 0 rgba(0, 0, 0, 0.2);
-	padding: 3px 15px;;
+	margin: 0 6px;
+	padding: 3px 15px;
+	right: 0;
+	bottom: 0px;
+	left: 0;
+	z-index: 3;
 	text-align: left;
 	position: relative;
 }
 
-.footer:before {
+#footer:before {
 	content: '';
-	top: -2px;
+	top: -12px;
 	position: absolute;
 	left: 0;
+	margin-left: -6px;
+	padding-left: 6px;
+	padding-right: 6px;
 	width: 100%;
-	height: 2px;
+	height: 12px;
 	display: block;
 	z-index: 1;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3)
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3),
+				0 6px 0 -3px rgba(255, 255, 255, 0.8),
+				0 7px 1px -3px rgba(0, 0, 0, 0.3)
 				;
 }
