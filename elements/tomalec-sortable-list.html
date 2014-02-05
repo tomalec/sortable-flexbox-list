@@ -1,13 +1,19 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 
-<polymer-element name="tomalec-sortable-list" attributes="order orderArray" extends="body">
+<polymer-element name="tomalec-sortable-list" attributes="order orderArray">
 	<template>
 		<link rel="stylesheet" href="tomalec-sortable-list.css">
 		<content></content>
 	</template>
 	 <script>
      (function tomalecSortableList(){
+        function removeTextNodes( nodesList ){
+            return nodesList.array()
+                            .filter(function filterOutText(child){
+                                return !(child instanceof Text);
+                            });
+        }
 
         function calculateMove(from, to, oldOrder){
             var newOrder, len;
@@ -63,7 +69,8 @@
                 // debugger
                 // console.warn("orderChanged", this, from, to, what);
                 var orderArray = to.split(","),
-                    listItems = this.children;
+                    //TODO: rewrite this when better solution came
+                    listItems = removeTextNodes( this.shadowRoot.querySelector('content').getDistributedNodes() );//this.children;
                     len = orderArray.length
 
                 while(len--){
@@ -75,11 +82,13 @@
                 }
                 this.fire('change', {from: from, to: to, orderArray: orderArray}, null, false);
             },
-            ready: function () {
+            attached: function () {
                 var self = this;
 
-                if( this.order=="" && this.childElementCount >0 ){
-                    this.order = range(0,this.childElementCount-1).join(",");
+                //TODO: rewrite this when better solution came
+                var realChildElementCount = removeTextNodes( this.shadowRoot.querySelector('content').getDistributedNodes() ).length;
+                if( this.order=="" && realChildElementCount >0 ){
+                    this.order = range(0,realChildElementCount-1).join(",");
                 }
                 // Observe changes
                 // TODO: Make it cleaner
@@ -116,7 +125,8 @@
                 //debugger
                 var len, currentItem;
                 //debugger
-                listItems = listItems || this.children;
+                //TODO: rewrite this when better solution came
+                listItems = listItems || removeTextNodes( this.shadowRoot.querySelector('content').getDistributedNodes() );//this.children;
                 len = listItems.length;
                 //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
                 while(len--){
@@ -199,4 +209,12 @@
         });
     }());
     </script>
+</polymer-element>
+
+<polymer-element name="tomalec-sortable-body" extends="body" noscript>
+    <template>
+        <tomalec-sortable-list>
+            <content></content>
+        </tomalec-sortable-list>
+    </template>
 </polymer-element>
