@@ -1,7 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-
-
-<polymer-element name="tomalec-sortable-list" attributes="order orderArray">
+<polymer-element name="tomalec-sortable-list" attributes="order disabled">
 	<template>
 		<link rel="stylesheet" href="tomalec-sortable-list.css">
 		<content></content>
@@ -62,8 +59,20 @@
 
         Polymer('tomalec-sortable-list', {
             order: "",
+            disabled: false,
 
             dragged: null,
+
+            disabledChanged: function disabledChanged( from, to ){
+                //d console.info("makeDraggable", this, arguments)
+                var len, listItems,
+                    listItems = this.children;
+                len = listItems.length;
+                //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
+                while(len--){
+                    listItems[len].draggable = !to;
+                }
+            },
 
             orderChanged: function orderChanged( from, to, what){
                 // debugger
@@ -131,7 +140,7 @@
                 //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
                 while(len--){
                     currentItem = listItems[len];
-                    currentItem.draggable = true;
+                    currentItem.draggable = !this.disabled;
                     currentItem.addEventListener('dragstart', this.dragStart.bind(this), false);
                     currentItem.addEventListener('dragenter', this.dragEnter.bind(this), false);
                     currentItem.addEventListener('dragover', this.dragOver.bind(this), false);

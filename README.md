@@ -18,7 +18,8 @@
 1. Import Web Components' polyfill:
 
 	```html
-	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.0.20131107/polymer.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.4/platform.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.4/polymer.js"></script>
 	```
 
 2. Import Custom Element:
@@ -37,10 +38,11 @@
 	</tomalec-sortable-list>
 	```
 
-## Options
+## Options/Attributes
 
 Attribute  | Options                   | Default             | Description
 ---        | ---                       | ---                 | ---
+`disabled` | *boolean*				   | false				 | If set to `true` none of elements will be draggable.
 `order`    | *string*                  | "1,...,n"           | Coma separated sequence of elements' order. By default as is in HTML. <br/> Please note that this is **NOT a list of sorted indexes**, rather a map where the key is index from HTML, and value is CSS order - position on screen.
 
 
@@ -48,7 +50,8 @@ Attribute  | Options                   | Default             | Description
 
 
 Property  | Type                   | Description
----       | ---                    | ---                 
+---       | ---                    | ---    
+`disabled`| *boolean*			   | Is dragging disabled?             
 `order`   | *string*        	   | Coma separated sequence of elements' order. See above.
 
 ## Events
@@ -69,6 +72,9 @@ Event Name  | event.detail          	| Description
 
 
 ## History
+
+* v0.0.20140205 February 05, 2014
+	* New attribute: `disabled`
 
 * v0.0.20140129 January 29, 2014
 	* Preloaded order,
