@@ -37,10 +37,11 @@
 	</tomalec-sortable-list>
 	```
 
-## Options
+## Options/Attributes
 
 Attribute  | Options                   | Default             | Description
 ---        | ---                       | ---                 | ---
+`disabled` | *boolean*				   | false				 | If set to `true` none of elements will be draggable.
 `order`    | *string*                  | "1,...,n"           | Coma separated sequence of elements' order. By default as is in HTML. <br/> Please note that this is **NOT a list of sorted indexes**, rather a map where the key is index from HTML, and value is CSS order - position on screen.
 
 
@@ -48,7 +49,8 @@ Attribute  | Options                   | Default             | Description
 
 
 Property  | Type                   | Description
----       | ---                    | ---                 
+---       | ---                    | ---    
+`disabled`| *boolean*			   | Is dragging disabled?             
 `order`   | *string*        	   | Coma separated sequence of elements' order. See above.
 
 ## Events
@@ -69,6 +71,9 @@ Event Name  | event.detail          	| Description
 
 
 ## History
+
+* v0.0.20140205 February 05, 2014
+	* New attribute: `disabled`
 
 * v0.0.20140129 January 29, 2014
 	* Preloaded order,
