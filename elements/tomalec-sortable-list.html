@@ -90,35 +90,38 @@
                 this.fire('change', {from: from, to: to, orderArray: orderArray}, null, false);
             },
             attached: function () {
-                var self = this;
+                //ensure any element upgrades have been processed
+                this.async(function asyncAttached(){
+                    var self = this;
 
-                if( this.order=="" && this.childElementCount >0 ){
-                    this.order = range(0,this.childElementCount-1).join(",");
-                }
-                // Observe changes
-                // TODO: Make it cleaner
-                // create an observer instance
-                var observer = new MutationObserver(function(mutations) {
-                  mutations.forEach(function(mutation) {
-                    var newOrder;
-                    console.log("observation", mutation.type, arguments, mutations);
-                    if(mutation.addedNodes){
-                        newOrder = range( self.childElementCount - mutation.addedNodes.length, self.childElementCount  -1 );
-                        //debugger;
-                        if(mutation.nextSibling === null){
-                            self.order = (self.order ? self.order + ",":"") + newOrder.join(',');
-                        } else if(mutation.previousSibling === null){
-                            self.order = newOrder.join(',') + ( self.order ? "," + self.order :"");
-                        }
+                    if( this.order=="" && this.childElementCount >0 ){
+                        this.order = range(0,this.childElementCount-1).join(",");
                     }
-                    self.makeDraggable( mutation.addedNodes );
-                  });    
-                });
-                // pass in the target node, as well as the observer options
-                observer.observe(this, { childList: true });
-                // end of: Observe changes
+                    // Observe changes
+                    // TODO: Make it cleaner
+                    // create an observer instance
+                    var observer = new MutationObserver(function(mutations) {
+                      mutations.forEach(function(mutation) {
+                        var newOrder;
+                        console.log("observation", mutation.type, arguments, mutations);
+                        if(mutation.addedNodes){
+                            newOrder = range( self.childElementCount - mutation.addedNodes.length, self.childElementCount  -1 );
+                            //debugger;
+                            if(mutation.nextSibling === null){
+                                self.order = (self.order ? self.order + ",":"") + newOrder.join(',');
+                            } else if(mutation.previousSibling === null){
+                                self.order = newOrder.join(',') + ( self.order ? "," + self.order :"");
+                            }
+                        }
+                        self.makeDraggable( mutation.addedNodes );
+                      });    
+                    });
+                    // pass in the target node, as well as the observer options
+                    observer.observe(this, { childList: true });
+                    // end of: Observe changes
 
-                this.makeDraggable();
+                    this.makeDraggable();
+                });
             },
             /**
              * Make list items draggable. Given set, or all children.
