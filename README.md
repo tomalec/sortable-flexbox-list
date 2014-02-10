@@ -7,11 +7,12 @@
 ## Demo
 
 > [Check it live](http://tomalec.github.io/sortable-flexbox-list/).
->> Advanced examples:
+>> Advanced [examples](https://github.com/tomalec/sortable-flexbox-list/tree/master/examples):
 >>
 >> * [Nested list](http://tomalec.github.io/sortable-flexbox-list/examples/nested.html)
 >> * [Preloaded order](http://tomalec.github.io/sortable-flexbox-list/examples/pre-ordered.html)
 >> * [Dynamic list](http://tomalec.github.io/sortable-flexbox-list/examples/dynamicAdd.html)
+>> * [Sortable `<body>`](http://tomalec.github.io/sortable-flexbox-list/examples/sortableBody.html)
 
 ## Usage
 
@@ -73,8 +74,9 @@ Event Name  | event.detail          	| Description
 
 ## History
 
-* v0.0.20140205 February 05, 2014
-	* New attribute: `disabled`
+* v0.0.20140210 February 10, 2014
+	* New attribute: `disabled`,
+	* New `tomalec-sortable-body` element, to attach sortable features on root level.
 
 * v0.0.20140129 January 29, 2014
 	* Preloaded order,

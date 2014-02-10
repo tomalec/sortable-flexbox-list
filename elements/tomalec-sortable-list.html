@@ -5,11 +5,17 @@
 	</template>
 	 <script>
      (function tomalecSortableList(){
+        function removeTextNodes( nodesList ){
+            return nodesList.array()
+                            .filter(function filterOutText(child){
+                                return !(child instanceof Text);
+                            });
+        }
 
         function calculateMove(from, to, oldOrder){
             var newOrder, len;
             if( from == to ){
-                return;
+                return false;
             }
             newOrder = oldOrder.split(",");
             len = newOrder.length;
@@ -72,11 +78,10 @@
                 // debugger
                 // console.warn("orderChanged", this, from, to, what);
                 var orderArray = to.split(","),
-                    listItems = this.children;
-                    len = orderArray.length
+                    len = orderArray.length;
 
                 while(len--){
-                    currentItem = listItems[len];
+                    currentItem = this.children[len];
                     //change if needed
                     if(currentItem.style.order != orderArray[len]){
                         currentItem.style.order = orderArray[len];
@@ -84,7 +89,7 @@
                 }
                 this.fire('change', {from: from, to: to, orderArray: orderArray}, null, false);
             },
-            ready: function () {
+            attached: function () {
                 var self = this;
 
                 if( this.order=="" && this.childElementCount >0 ){
@@ -125,6 +130,7 @@
                 //debugger
                 var len, currentItem;
                 //debugger
+                //TODO: rewrite this when better solution came
                 listItems = listItems || this.children;
                 len = listItems.length;
                 //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
@@ -187,15 +193,15 @@
                     console.log("drop", this, arguments, 'from',from, 'to', event.currentTarget.style.order, this.dragged,this.childElementCount);
 
                     newOrder = calculateMove( this.dragged, event.currentTarget.style.order, this.order);
-
-                    this.order = newOrder.join(",");
-                    this.fire('move', {
-                        from: this.dragged,
-                        to: event.currentTarget.style.order,
-                        orderArray: newOrder,
-                        item: event.currentTarget
-                    }, null, false);
-
+                    if( newOrder ){ //if there is new order - soething have changed
+                        this.order = newOrder.join(",");
+                        this.fire('move', {
+                            from: this.dragged,
+                            to: event.currentTarget.style.order,
+                            orderArray: newOrder,
+                            item: event.currentTarget
+                        }, null, false);
+                    }
                     this.dragged = null;
                 }
                 return false;
