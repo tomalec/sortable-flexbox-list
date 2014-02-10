@@ -47,8 +47,7 @@ code{
 
 	padding: 1px;
 	margin: 0 0 10px;
-	font-size: 13px;
-	line-height: 20px;
+	font-size: 90%;
 	word-break: break-all;
 	word-wrap: break-word;
 	border: 1px solid rgba(0, 0, 0, 0.15);
