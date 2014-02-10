@@ -78,12 +78,10 @@
                 // debugger
                 // console.warn("orderChanged", this, from, to, what);
                 var orderArray = to.split(","),
-                    //TODO: rewrite this when better solution came
-                    listItems = removeTextNodes( this.shadowRoot.querySelector('content').getDistributedNodes() );//this.children;
-                    len = orderArray.length
+                    len = orderArray.length;
 
                 while(len--){
-                    currentItem = listItems[len];
+                    currentItem = this.children[len];
                     //change if needed
                     if(currentItem.style.order != orderArray[len]){
                         currentItem.style.order = orderArray[len];
@@ -94,10 +92,8 @@
             attached: function () {
                 var self = this;
 
-                //TODO: rewrite this when better solution came
-                var realChildElementCount = removeTextNodes( this.shadowRoot.querySelector('content').getDistributedNodes() ).length;
-                if( this.order=="" && realChildElementCount >0 ){
-                    this.order = range(0,realChildElementCount-1).join(",");
+                if( this.order=="" && this.childElementCount >0 ){
+                    this.order = range(0,this.childElementCount-1).join(",");
                 }
                 // Observe changes
                 // TODO: Make it cleaner
@@ -135,7 +131,7 @@
                 var len, currentItem;
                 //debugger
                 //TODO: rewrite this when better solution came
-                listItems = listItems || removeTextNodes( this.shadowRoot.querySelector('content').getDistributedNodes() );//this.children;
+                listItems = listItems || this.children;
                 len = listItems.length;
                 //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
                 while(len--){
@@ -218,12 +214,4 @@
         });
     }());
     </script>
-</polymer-element>
-
-<polymer-element name="tomalec-sortable-body" extends="body" noscript>
-    <template>
-        <tomalec-sortable-list>
-            <content></content>
-        </tomalec-sortable-list>
-    </template>
 </polymer-element>

@@ -1,0 +1,9 @@
+<polymer-element name="tomalec-sortable-body" extends="body" noscript>
+    <template>
+		<link rel="stylesheet" href="tomalec-sortable-list.css">
+        <content></content>
+    </template>
+    <script>
+        Polymer('tomalec-sortable-body', Platform.mixin({}, Polymer.getRegisteredPrototype("tomalec-sortable-list")));
+    </script>
+</polymer-element>
