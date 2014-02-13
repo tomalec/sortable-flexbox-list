@@ -1,0 +1,10 @@
+<polymer-element name="cssImport-bar">
+    <template>
+		<link rel="stylesheet" href="cssImport-foo.css">
+        <span>Bar:</span>
+        <content></content>
+    </template>
+    <script>
+        Polymer('cssImport-bar', Platform.mixin({}, Polymer.getRegisteredPrototype("tomalec-foo")));
+    </script>
+</polymer-element>
