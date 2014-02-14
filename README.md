@@ -39,6 +39,8 @@
 	</tomalec-sortable-list>
 	```
 
+> Please note, that `<style>`, `<template>`, and text nodes will not be sortable.
+
 ## Options/Attributes
 
 Attribute  | Options                   | Default             | Description
@@ -73,6 +75,9 @@ Event Name  | event.detail          	| Description
 
 
 ## History
+
+* v0.0.20140211 February 11, 2014
+	* Fix for templates inside sortable-list.
 
 * v0.0.20140210 February 10, 2014
 	* New attribute: `disabled`,
