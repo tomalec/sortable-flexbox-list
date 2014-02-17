@@ -76,6 +76,9 @@ Event Name  | event.detail          	| Description
 
 ## History
 
+~ v0.0.20140217 February 17, 2014
+	* Polymer updated to 0.2.0.
+
 * v0.0.20140211 February 11, 2014
 	* Fix for templates inside sortable-list.
 
