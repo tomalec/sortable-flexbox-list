@@ -6,9 +6,12 @@
 		<title>Polymer • SortableList • Pre-ordered</title>
 		<link rel="stylesheet" href="pre-ordered.css">
 
+    	<!-- Importing Web Component's Polyfill -->
     	<script src="../bower_components/platform/platform.js"></script>
     	<link rel="import" href="../bower_components/polymer/polymer.html"> 
-   		<link rel="import" href="../elements/tomalec-sortable-list.html">
+   		
+   		<!-- Importing Custom Elements -->
+   		<link rel="import" href="../src/tomalec-sortable-list.html">
   	</head>
   	<body>
 		<header>
@@ -19,6 +22,7 @@
 		</h2>
 		Please note that <code>order</code> is a sequence of elements' order. So the key is index from HTML, and value is CSS order - position on screen.
 		<section>
+			<!-- Using Custom Elements -->
 		    <tomalec-sortable-list unresolved order="4,3,2,0,1">
 				<li>zero</li>
 				<li>one</li>

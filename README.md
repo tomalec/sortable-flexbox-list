@@ -26,7 +26,7 @@
 2. Import Custom Element:
 
 	```html
-	<link rel="import" href="elements/sortable-flexbox-list.html">
+	<link rel="import" href="src/sortable-flexbox-list.html">
 	```
 
 3. Start using it!
@@ -73,6 +73,13 @@ Event Name  | event.detail          	| Description
 			| *Array*  `orderArray`		| New order as array,
 			| *EventTarget*  `item`		| DOM Node that was moved.
 
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
 
 ## History
 

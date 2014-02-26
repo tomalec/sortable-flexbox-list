@@ -6,9 +6,12 @@
 		<title>Polymer • SortableList •  Nested</title>
 		<link rel="stylesheet" href="nested.css">
 
+    	<!-- Importing Web Component's Polyfill -->
     	<script src="../bower_components/platform/platform.js"></script>
     	<link rel="import" href="../bower_components/polymer/polymer.html"> 
-   		<link rel="import" href="../elements/tomalec-sortable-list.html">
+   		
+   		<!-- Importing Custom Elements -->
+   		<link rel="import" href="../src/tomalec-sortable-list.html">
   	</head>
   	<body>
 		<header>
@@ -16,10 +19,11 @@
 		</header>
 		<section id="exampleApp">
 			<section id="main">
+				<!-- Using Custom Elements -->
 			    <tomalec-sortable-list>
 					<li style="order: 0;">zero</li>
 					<li style="order: 1;"><div>one</div></li>
-
+					<!-- Using Custom Elements -->
 				    <tomalec-sortable-list style="order:2;">
 						<li style="order: 0;">_zero</li>
 						<li style="order: 1;">_one</li>
