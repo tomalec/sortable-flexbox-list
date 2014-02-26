@@ -56,6 +56,6 @@
     }
 
 }
-::content [draggable] {
+::content [draggable=true] {
     cursor: move;
 }

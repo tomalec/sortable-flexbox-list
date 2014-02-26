@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Polymer • SortableList • Pre-ordered</title>
+		<link rel="stylesheet" href="pre-ordered.css">
+
+    	<!-- Importing Web Component's Polyfill -->
+    	<script src="../bower_components/platform/platform.js"></script>
+    	<link rel="import" href="../bower_components/polymer/polymer.html"> 
+   		
+   		<!-- Importing Custom Elements -->
+   		<link rel="import" href="../src/tomalec-sortable-list.html">
+  	</head>
+  	<body>
+		<header>
+			<h1>Pre-ordered List</h1>
+		</header>
+		<h2>
+			<pre><code>&lt;tomalec-sortable-list order="4,3,2,0,1"></code></pre>
+		</h2>
+		Please note that <code>order</code> is a sequence of elements' order. So the key is index from HTML, and value is CSS order - position on screen.
+		<section>
+			<!-- Using Custom Elements -->
+		    <tomalec-sortable-list unresolved order="4,3,2,0,1">
+				<li>zero</li>
+				<li>one</li>
+				<li>two</li>
+				<li>three</li>
+				<li>four</li>
+			</tomalec-sortable-list>
+			<footer id="footer">
+				<button id="reset">Reset to 0,1,2,3,4</button>
+				<dl>
+					<dt>tomalec-sortable-list<strong>.order</strong></dt>
+					<dd>order of sorted items
+						<pre><code class="block"  id="newOrder"></code></pre>
+					</dd>
+					<dt>tomalec-sortable-list<strong>@change</strong></dt>
+					<dd>event triggered after every change
+						<pre><code class="block" id="change"></code></pre>
+					</dd>
+					<dt>tomalec-sortable-list<strong>@move</strong></dt>
+					<dd>event triggered after every move
+						<pre><code class="block" id="move"></code></pre>
+					</dd>
+				</dl>
+			</footer>
+		</section>
+		<section>
+			<h3>Other examples</h3>
+			<ul>
+				<li><a href="../index.html">Basic one</a></li>
+				<li><a href="plain.html">Plain</a></li>
+				<li><a href="nested.html">Nested</a></li>
+				<li><a href="dynamicAdd.html">Dynamic add nodes</a></li>
+				<li><a href="sortableBody.html">Sortable <code>&lt;body&gt;</code></a></li>
+			</ul>
+		</section>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+		document.querySelector('tomalec-sortable-list').addEventListener('change', function(e) {
+			document.querySelector('#newOrder').innerHTML = this.order;
+			document.querySelector('#change').innerHTML = JSON.stringify(e.detail);
+			console.log("order changed:", e.detail);
+		});
+		document.querySelector('tomalec-sortable-list').addEventListener('move', function(e) {
+			console.log("item moved:", e.detail);
+			e.detail.item = e.detail.item.toString();
+			document.querySelector('#move').innerHTML = JSON.stringify(e.detail);
+		});
+
+		document.getElementById('reset').addEventListener('click', function(e) {
+			document.querySelector('tomalec-sortable-list').setAttribute("order", "0,1,2,3,4");
+		});
+
+      // Needed to detect model changes if Object.observe
+      // is not available in the JS VM.
+      Platform.performMicrotaskCheckpoint();
+    });
+    </script>
+
+	</body>
+</html>

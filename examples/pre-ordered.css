@@ -19,21 +19,24 @@ body {
 	-o-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
-h1 {
+h1,h2 {
   /*	position: absolute;
 	top: -120px;*/
 	width: 100%;
-	font-size: 70px;
 	font-weight: bold;
 	text-align: center;
-	color: #b3b3b3;
-	color: rgba(255, 255, 255, 0.3);
 	text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 	-webkit-text-rendering: optimizeLegibility;
 	-moz-text-rendering: optimizeLegibility;
 	-ms-text-rendering: optimizeLegibility;
 	-o-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
+}
+h1{
+	color: #b3b3b3;
+	color: rgba(255, 255, 255, 0.3);
+	font-size: 50px;
+	line-height: 50px;
 }
 pre{
 	margin: 2px;
@@ -60,13 +63,9 @@ code.block{
 .hidden{
 	display:none;
 }
-
 /* IE doesn't support the hidden attribute */
 [hidden] {
 	display: none;
-}
-dl{
-	margin: 0;
 }
 a{
 	color: #BBB;
@@ -77,10 +76,18 @@ a:hover{
 a:visited{
 	color: #999;
 }
-input{
-	width: 3em;
+
+#exampleApp {
+	position: relative;
+}
+#header {
+	padding-top: 15px;
+	border-radius: inherit;
 }
 
+dl{
+	margin: 0;
+}
 tomalec-sortable-list li{
 	color: rgb(57, 57, 57);
 	background-color: #fff;
@@ -95,42 +102,42 @@ tomalec-sortable-list li{
 	font-size: 14px;
     list-style: none;
 }
-tomalec-sortable-list li:hover{
-    border-color:#2b7cab;
-    transition: border-color 200ms ease-in-out;
-}
-tomalec-sortable-list li.over{
-    background: #c0c0c0;
-    transition: background 200ms ease-in-out;
-}
-tomalec-sortable-list li.move{
-    opacity: .5;
-}
-tomalec-sortable-list[unresolved]{
-	height: 1em;
-}
 
-#exampleApp {
-	position: relative;
-}
-#header {
-	padding-top: 15px;
-	border-radius: inherit;
-}
-
-#main {
+tomalec-sortable-list{
 	background: #E3E3E3;
 	background: rgb(227, 227, 227, 0.9);
-	/*margin: 130px 0 40px 0;*/
-	margin: 0;
+	margin: 20px 0 0 0;
 	border: 1px solid #ccc;
-	padding: 0 0 12px 0;
+	padding: 0;
 	position: relative;
 	z-index: 2;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
 	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
 				0 25px 50px 0 rgba(0, 0, 0, 0.15);
+}
+tomalec-sortable-list tomalec-sortable-list{
+	width: 70%;
+	padding-top: 12px;
+}
+
+tomalec-sortable-list[unresolved]{
+	height: 1em;
+}
+
+tomalec-sortable-list:hover,
+tomalec-sortable-list li:hover{
+    border-color:#2b7cab;
+    transition: border-color 200ms ease-in-out;
+}
+tomalec-sortable-list.over,
+tomalec-sortable-list li.over{
+    background: #c0c0c0;
+    transition: background 200ms ease-in-out;
+}
+tomalec-sortable-list.move,
+tomalec-sortable-list li.move{
+    opacity: .5;
 }
 
 #footer {

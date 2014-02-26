@@ -6,8 +6,12 @@
 		<title>Polymer • SortableList</title>
 		<link rel="stylesheet" href="app.css">
 
+		<!-- Importing Web Component's Polyfill -->
     	<script src="bower_components/platform/platform.js"></script>
-   		<link rel="import" href="elements/tomalec-sortable-list.html">
+    	<link rel="import" href="bower_components/polymer/polymer.html">
+
+    	<!-- Importing Custom Elements -->
+   		<link rel="import" href="src/tomalec-sortable-list.html">
   	</head>
   	<body>
 		<header>
@@ -15,65 +19,95 @@
 		</header>
 		<section id="exampleApp">
 			<template id="buggyapp-tmpl" bind>
-				<style scoped>
-					input{width: 3em;}
-				</style>
 			<section id="main">
-				<button>Change CSS `flex-direction`</button>
-			    <tomalec-sortable-list unresolved>
+				<button id="direction">Change CSS `flex-direction`</button>
+				<button id="toggle">Toggle dragging</button>
+
+				<!-- Using Custom Elements -->
+			    <tomalec-sortable-list unresolved order="{{userOrder$}}">
 					<template repeat="{{ items }}">
-                		<li style="order: {{userOrder$}};">desc <input value="{{desc}}"><br/> userOrder$ <input value="{{userOrder$}}"></li>
+                		<li>{{desc}}</li>
             		</template>
 				</tomalec-sortable-list>
 			</section>
 			<footer id="footer">
+				<style scoped>
+					input{width: 8em;}
+				</style>
 				<dl>
 					<dt>tomalec-sortable-list<strong>.order</strong></dt>
-					<dd>order of sorted items<br/><strong id="newOrder">
-					<template repeat="{{ items }}">{{userOrder$}} </template></strong></dd>
+					<dd>order of sorted items<br/><input id="newOrder" value="{{userOrder$}}"></dd>
 					<dt>tomalec-sortable-list<strong>@change</strong></dt>
-					<dd>event triggered after every change<br/><strong id="change"></strong></dd>
+					<dd>event triggered after every change
+						<pre><code class="block" id="change"></code></pre>
+					</dd>
+					<dt>tomalec-sortable-list<strong>@move</strong></dt>
+					<dd>event triggered after every move
+						<pre><code class="block" id="move"></code></pre>
+					</dd>
 				</dl>
 			</footer>
 			</template>
 		</section>
+		<section>
+			<h2>Other examples</h2>
+			<ul>
+				<li><a href="examples/plain.html">Plain</a></li>
+				<li><a href="examples/nested.html">Nested</a></li>
+				<li><a href="examples/pre-ordered.html">Pre-loaded order</a></li>
+				<li><a href="examples/dynamicAdd.html">Dynamic add nodes</a></li>
+				<li><a href="examples/sortableBody.html">Sortable <code>&lt;body&gt;</code></a></li>
+			</ul>
+		</section>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-
-		var t2 = document.getElementById('buggyapp-tmpl');
-		t2.model = {
+	document.addEventListener('DOMContentLoaded', function() {
+		document.getElementById('buggyapp-tmpl').model = {
+			userOrder$: "0,1,2,3,4,5,6,7",
 		    items: [{
-		        "desc": "zero",
-		        "userOrder$": 0
+		        "desc": "zero"
 		    }, {
-		        "desc": "one",
-		        "userOrder$": 1
+		        "desc": "one"
 		    }, {
-		        "desc": "two",
-		        "userOrder$": 2
+		        "desc": "two"
 		    }, {
-		        "desc": "three",
-		        "userOrder$": 3
+		        "desc": "three"
 		    }, {
-		        "desc": "four",
-		        "userOrder$": 4
+		        "desc": "four"
 		    }, {
-		        "desc": "five",
-		        "userOrder$": 5
+		        "desc": "five"
 		    }, {
-		        "desc": "six",
-		        "userOrder$": 6
+		        "desc": "six"
 		    }, {
-		        "desc": "seven",
-		        "userOrder$": 7
+		        "desc": "seven"
 		    }]
 		};
-      // Needed to detect model changes if Object.observe
-      // is not available in the JS VM.
-      Platform.performMicrotaskCheckpoint();
-    });
+		setTimeout(function() {
+			document.querySelector('tomalec-sortable-list').addEventListener('change', function(e) {
+				document.querySelector('#newOrder').innerHTML = this.order;
+				document.querySelector('#change').innerHTML = JSON.stringify(e.detail);
+				console.log("order changed:", e.detail);
+			});
+			document.querySelector('tomalec-sortable-list').addEventListener('move', function(e) {
+				console.log("item moved:", e.detail);
+				e.detail.item = e.detail.item.toString();
+				document.querySelector('#move').innerHTML = JSON.stringify(e.detail);
+				
+			});
+			document.getElementById('direction').addEventListener('click', function(e) {
+				document.querySelector('tomalec-sortable-list').style["flex-direction"] = 
+					document.querySelector('tomalec-sortable-list').style["flex-direction"] == "column"?
+						"row" : "column";
+			});
+			document.getElementById('toggle').addEventListener('click', function(e) {
+				var list = document.querySelector('tomalec-sortable-list');
+				list.disabled = !list.disabled;
+			});
+			// Needed to detect model changes if Object.observe
+			// is not available in the JS VM.
+			Platform.performMicrotaskCheckpoint();
+	    },1000);
+	});
     </script>
 
 	</body>

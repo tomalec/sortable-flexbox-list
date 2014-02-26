@@ -1,20 +1,24 @@
 {
   "name": "tomalec-sortable-list",
-  "version": "0.0.20140121",
-  "description": "<tomalec-sortable-list> is a Custom Element with sortable list, that uses CSS flexbox.",
+  "version": "0.0.20140211",
+  "description": "<tomalec-sortable-list> is a Custom Element with sortable list, that uses CSS flexbox (no need to change DOM structure).",
   "authors": [
     "Tomek Wytrębowicz (https://github.com/tomalec)"
   ],
   "license": "MIT",
+  "main": ["elements/tomalec-sortable-list.html","elements/tomalec-sortable-list.css"],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "examples",
+    "app.css",
+    "index.html"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.1.0"
+    "polymer": "Polymer/polymer#~0.2.0"
   },
   "homepage": "https://github.com/tomalec/sortable-flexbox-list",
   "keywords": [
