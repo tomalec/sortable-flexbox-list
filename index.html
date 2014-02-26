@@ -6,9 +6,12 @@
 		<title>Polymer • SortableList</title>
 		<link rel="stylesheet" href="app.css">
 
+		<!-- Importing Web Component's Polyfill -->
     	<script src="bower_components/platform/platform.js"></script>
-    	<link rel="import" href="bower_components/polymer/polymer.html"> 
-   		<link rel="import" href="elements/tomalec-sortable-list.html">
+    	<link rel="import" href="bower_components/polymer/polymer.html">
+
+    	<!-- Importing Custom Elements -->
+   		<link rel="import" href="src/tomalec-sortable-list.html">
   	</head>
   	<body>
 		<header>
@@ -18,6 +21,8 @@
 			<section id="main">
 				<button id="direction">Change CSS `flex-direction`</button>
 				<button id="toggle">Toggle dragging</button>
+
+				<!-- Using Custom Elements -->
 			    <tomalec-sortable-list unresolved>
 					<li style="height: 1em">zero</li>
 					<li style="height: 2em"><input value="one"/></li>

@@ -5,14 +5,18 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>Polymer • SortableList • Plain</title>
 
+    	<!-- Importing Web Component's Polyfill -->
     	<script src="../bower_components/platform/platform.js"></script>
     	<link rel="import" href="../bower_components/polymer/polymer.html"> 
-   		<link rel="import" href="../elements/tomalec-sortable-list.html">
+   		
+   		<!-- Importing Custom Elements -->
+   		<link rel="import" href="../src/tomalec-sortable-list.html">
   	</head>
   	<body>
 		<header>
 			<h1>Plain Sortable List</h1>
 		</header>
+		<!-- Using Custom Elements -->
 		<tomalec-sortable-list>
 			<li>zero</li>
 			<li>one</li>

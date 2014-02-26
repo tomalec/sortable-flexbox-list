@@ -6,9 +6,12 @@
 		<title>Polymer • SortableList • Dynamic</title>
 		<link rel="stylesheet" href="pre-ordered.css">
 
+    	<!-- Importing Web Component's Polyfill -->
     	<script src="../bower_components/platform/platform.js"></script>
     	<link rel="import" href="../bower_components/polymer/polymer.html"> 
-   		<link rel="import" href="../elements/tomalec-sortable-list.html">
+   		
+   		<!-- Importing Custom Elements -->
+   		<link rel="import" href="../src/tomalec-sortable-list.html">
   	</head>
   	<body>
 		<header>
@@ -19,6 +22,7 @@
 		</h2>
 		Please note that new nodes will always be added as last in <code>order</code> even though you can add nodes into DOM as well at the beggining.
 		<section>
+			<!-- Using Custom Elements -->
 		    <tomalec-sortable-list unresolved>
 			</tomalec-sortable-list>
 			<footer id="footer">

@@ -6,11 +6,15 @@
 		<title>Polymer • SortableList • Body</title>
 		<link rel="stylesheet" href="pre-ordered.css">
 
+    	<!-- Importing Web Component's Polyfill -->
     	<script src="../bower_components/platform/platform.js"></script>
     	<script src="../bower_components/polymer/polymer.js"></script>
-   		<link rel="import" href="../elements/tomalec-sortable-list.html">
-   		<link rel="import" href="../elements/tomalec-sortable-body.html">
+   		
+   		<!-- Importing Custom Elements -->
+   		<link rel="import" href="../src/tomalec-sortable-list.html">
+   		<link rel="import" href="../src/tomalec-sortable-body.html">
   	</head>
+  	<!-- Using Custom Elements -->
   	<body is="tomalec-sortable-body">
 		<h1>Sortable <code>&lt;body&gt;</code></h1>
 		<h2>
@@ -18,7 +22,7 @@
 		</h2>
 		<section>
 			Please note that you have to import <em>tomalec-sortable-body.html</em>: 
-			<code>&lt;link rel="import" href="../elements/tomalec-sortable-body.html"&gt;</code>.
+			<code>&lt;link rel="import" href="../src/tomalec-sortable-body.html"&gt;</code>.
 		</section>
 		<button id="toggle">disable/enable sorting</button>
 
