@@ -14,19 +14,26 @@
 >> * [Dynamic list](http://tomalec.github.io/sortable-flexbox-list/examples/dynamicAdd.html)
 >> * [Sortable `<body>`](http://tomalec.github.io/sortable-flexbox-list/examples/sortableBody.html)
 
+## Install
+
+Install the component using [Bower](http://bower.io/):
+
+```sh
+$ bower install tomalec-sortable-list --save
+```
+
 ## Usage
 
 1. Import Web Components' polyfill:
 
 	```html
-	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.4/platform.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.1.4/polymer.js"></script>
+	<script src="//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"></script>
 	```
 
 2. Import Custom Element:
 
 	```html
-	<link rel="import" href="src/sortable-flexbox-list.html">
+	<link rel="import" href="bower_components/tomalec-sortable-list/src/tomalec-sortable-list.html">
 	```
 
 3. Start using it!
@@ -37,6 +44,33 @@
 		<li>one</li>
 		<li>two</li>
 	</tomalec-sortable-list>
+	```
+
+> Please note, that `<style>`, `<template>`, and text nodes will not be sortable.
+
+
+## Usage `tomalec-sortable-body`
+
+1. Import Web Components' polyfill:
+
+	```html
+	<script src="//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"></script>
+	```
+
+2. Import Custom Element:
+
+	```html
+	<!-- Importing Custom Elements -->
+	<link rel="import" href="bower_components/tomalec-sortable-list/src/tomalec-sortable-body.html">
+	```
+
+3. Start using it!
+
+	```html
+  	<body is="tomalec-sortable-body">
+		<h1>Your Code</h1>
+		<p>here</p>
+	</body>
 	```
 
 > Please note, that `<style>`, `<template>`, and text nodes will not be sortable.
@@ -83,27 +117,8 @@ Event Name  | event.detail          	| Description
 
 ## History
 
-~ v0.0.20140217 February 17, 2014
-	* Polymer updated to 0.2.0.
+For detailed changelog, check [Releases](https://github.com/tomalec/sortable-flexbox-list/releases).
 
-* v0.0.20140211 February 11, 2014
-	* Fix for templates inside sortable-list.
-
-* v0.0.20140210 February 10, 2014
-	* New attribute: `disabled`,
-	* New `tomalec-sortable-body` element, to attach sortable features on root level.
-
-* v0.0.20140129 January 29, 2014
-	* Preloaded order,
-	* `sortable="false"` feature removed, as the concept of non-sortable, sortable item is deffinately unclear.
-	* New `move` event
-	* Observe changes in DOM, dynamic adding new items to the list is now available
-
-* v0.0.20140122 January 22, 2014
-	* Nested lists
-
-* v0.0.20140121 January 21, 2014
-	* Initial version
 
 ## License
 
