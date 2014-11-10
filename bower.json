@@ -18,7 +18,7 @@
     "index.html"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.2.0"
+    "polymer": "Polymer/polymer#~0.4.2"
   },
   "homepage": "https://github.com/tomalec/sortable-flexbox-list",
   "keywords": [
