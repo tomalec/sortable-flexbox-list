@@ -1,0 +1,12 @@
+<polymer-element name="x-foo" extends="body">
+  <template>Something that breaks it.<content></content></template>
+  <script>
+    Polymer('x-foo',{
+      attached: function(){
+        this.async(function() {
+          this.innerHTML = "Hello! My name is " + this.tagName;
+        });
+      }
+    });
+  </script>
+</polymer-element>
