@@ -1,6 +1,7 @@
 {
-  "name": "dashboard",
-  "version": "0.0.0",
+  "name": "tomalec-sortable-list",
+  "version": "0.0.20141110",
+  "description": "<tomalec-sortable-list> is a Custom Element with sortable list, that uses CSS flexbox (no need to change DOM structure).",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -17,5 +18,6 @@
   },
   "engines": {
     "node": ">=0.8.0"
-  }
+  },
+  "license": "MIT"
 }
