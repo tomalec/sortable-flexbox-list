@@ -3,7 +3,8 @@
   	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Polymer • SortableList</title>
+		<title>&lt;tomalec-flexbox-list&gt;</title>
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto+Slab">
 		<link rel="stylesheet" href="app.css">
 
 		<!-- Importing Web Component's Polyfill -->
@@ -13,9 +14,16 @@
    		<link rel="import" href="src/tomalec-sortable-list.html">
   	</head>
   	<body>
-		<header>
-			<h1>Sortable List</h1>
+		<a href="https://github.com/tomalec/sortable-flexbox-list"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+  		<header>
+			<h1>&lt;<span>tomalec-sortable-list</span>&gt;</h1>
+			<div class="sub-head">
+				<iframe src="http://ghbtns.com/github-btn.html?user=tomalec&amp;repo=sortable-flexbox-list&amp;type=watch&amp;count=true&amp;size=medium" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="30"></iframe>
+				<p>Arrange the layout, not the content</p>
+			</div>
+			
 		</header>
+  		<p>&lt;tomalec-sortable-list&gt; is a Polymer Custom Element for sortable list that uses CSS flexbox to arrange items. Therefore it does not change order of elements in DOM</p>
 		<section id="exampleApp">
 			<section id="main">
 				<button id="direction">Change CSS `flex-direction`</button>
@@ -60,11 +68,12 @@
 				<li><a href="examples/pre-ordered.html">Pre-loaded order</a></li>
 				<li><a href="examples/dynamicAdd.html">Dynamic add nodes</a></li>
 				<li><a href="examples/sortableBody.html">Sortable <code>&lt;body&gt;</code></a></li>
+				<li><a href="examples/simpleWBootstrap.html">With Bootstrap</a></li>
 			</ul>
 		</section>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('polymer-ready', function() {
 
 		document.querySelector('tomalec-sortable-list').addEventListener('change', function(e) {
 			document.querySelector('#newOrder').innerHTML = this.order;

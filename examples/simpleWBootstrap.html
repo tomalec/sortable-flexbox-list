@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>&lt;tomalec-sortable-list&gt; •  with Bootstrap</title>
+
+      <!-- Importing Web Component's Polyfill -->
+      <script src="../../platform/platform.js"></script>
+      
+      <!-- Importing Custom Elements -->
+      <link rel="import" href="../src/tomalec-sortable-list.html">  
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+      
+      <!-- small beautifying -->
+      <style>
+        body{
+          width: 80%;
+          margin: 2em auto;
+        }
+        tomalec-sortable-list{
+          flex-direction: column;
+        }
+        tomalec-sortable-list li{
+          display: block;
+          width: 100%;
+        }
+      </style>
+    </head>
+<body>
+  <a href="https://github.com/tomalec/sortable-flexbox-list"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+  <h1 class="page-header">&lt;tomalec-sortable-list&gt;</h1>
+  <p>Custom Element for sortable list that uses CSS flexbox to arrange items. Therefore it does not change order of elements in DOM</p>
+
+  <p class="text-info">As it is Custom Element it is CSS framework agnostic, you can use <strong>any CSS</strong> rules/libs/framework to style it.</p>
+
+  <h3>Bootstrap example</h3>
+  
+  <!-- Simple List -->
+  <tomalec-sortable-list>
+    <li class="list-group-item">This is <a href="http://tomalec.github.io/sortable-flexbox-list/">tomalec-sortable-list</a></li>
+    <li class="list-group-item">It works with Bootstrap...</li>
+    <li class="list-group-item">...out of the box.</li>
+    <li class="list-group-item">In fact it works with any CSS lib, as it is just HTML Element.</li>
+    <li class="list-group-item">It uses flex box layout, so <strong>does not change the order of items in DOM</strong>.</li>
+    <li class="list-group-item">Just drag some elements around.</li>
+  </tomalec-sortable-list>
+
+
+  <h3>Other examples</h3>
+  <ul>
+    <li><a href="../">Basic</a></li>
+    <li><a href="plain.html">Plain</a></li>
+    <li><a href="nested.html">Nested</a></li>
+    <li><a href="pre-ordered.html">Pre-loaded order</a></li>
+    <li><a href="dynamicAdd.html">Dynamic add nodes</a></li>
+    <li><a href="sortableBody.html">Sortable <code>&lt;body&gt;</code></a></li>
+  </ul>
+  
+
+</body>
+</html>
