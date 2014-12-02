@@ -1,8 +1,9 @@
 <link rel="import" href="../../polymer/polymer.html"> 
 
-<polymer-element name="tomalec-sortable-list" attributes="order disabled">
+<polymer-element name="tomalec-sortable-list" attributes="order disabled placeholder">
 	<template>
 		<link rel="stylesheet" href="tomalec-sortable-list.css">
+        <template if="{{placeholder}}"><div id="placeholder" style="order: 0; display: none;"><content select=".placeholder"></content></div></template>
 		<content></content>
 	</template>
 	 <script>
@@ -12,12 +13,13 @@
          * @param  {NodesList} nodesList nodes list to filter
          * @return {Array}           array of sortable items.
          */
-        function filterNodes( nodesList ){
+        function filterNodes( nodesList, placeholder ){
             return nodesList.array()
                             .filter(function filterOutText(child){
                                 return !(child instanceof Text) && 
                                         !(child instanceof HTMLTemplateElement) &&
-                                        !(child instanceof HTMLScriptElement);
+                                        !(child instanceof HTMLScriptElement) &&
+                                        !(placeholder && child.classList.contains("placeholder"));
                             });
         }
 
@@ -55,13 +57,15 @@
          * Create an array with number range `[from, from+1, ..., to]`.
          * @param  {Number} from first element in range
          * @param  {Number} to last number in range
+         * @param  {Number} [multiplier=1]
          * @return {Array<Number>}
          */
-        function range(from, to){
+        function range(from, to, multiplier){
             var len = to - from +1,
+                multiplier = multiplier || 1;
                 range = [];
             while (len--) {
-              range[len] = len + from;
+              range[len] = (len + from) * multiplier;
             }
             return range;
         }
@@ -69,13 +73,14 @@
         Polymer('tomalec-sortable-list', {
             order: "",
             disabled: false,
+            placeholder: false,
 
             dragged: null,
 
             disabledChanged: function disabledChanged( from, to ){
                 //d console.info("makeDraggable", this, arguments)
                 var len, listItems,
-                    listItems = filterNodes( this.children );
+                    listItems = filterNodes( this.children, this.placeholder );
                 len = listItems.length;
                 //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
                 while(len--){
@@ -103,10 +108,10 @@
                 //ensure any element upgrades have been processed
                 this.async(function asyncAttached(){
                     var self = this;
-                    var childElementCount = filterNodes( this.children ).length;
+                    var childElementCount = filterNodes( this.children, this.placeholder ).length;
 
                     if( this.order=="" && childElementCount >0 ){
-                        this.order = range(0, childElementCount-1).join(",");
+                        this.order = range(0, childElementCount-1, 10).join(",");
                     }
                     // Observe changes
                     // TODO: Make it cleaner
@@ -145,7 +150,7 @@
                 var len, currentItem;
                 //debugger
                 //TODO: rewrite this when better solution came
-                listItems = listItems || filterNodes( this.children );
+                listItems = listItems || filterNodes( this.children, this.placeholder );
                 len = listItems.length;
                 //TODO: rewrite it to mutation observer, so it will work also for items added in fly.
                 while(len--){
@@ -153,11 +158,14 @@
                     currentItem.draggable = !this.disabled;
                     currentItem.addEventListener('dragstart', this.dragStart.bind(this), false);
                     currentItem.addEventListener('dragenter', this.dragEnter.bind(this), false);
-                    currentItem.addEventListener('dragover', this.dragOver.bind(this), false);
+                    currentItem.addEventListener('dragover', this.dragOver.bind(this, currentItem), false);
                     currentItem.addEventListener('dragleave', this.dragLeave.bind(this), false);
                     currentItem.addEventListener('drop', this.drop.bind(this), false);
                     currentItem.addEventListener('dragend', this.dragEnd.bind(this), false);
                 }
+                // this.$.placeholder.addEventListener('drop', this.drop.bind(this), false);
+                // this.$.placeholder.addEventListener('dragenter', this.dragEnter.bind(this), false);
+                this.$.placeholder.addEventListener('dragover', this.dragOverPlaceholder.bind(this), false);
             },
             dragStart: function dragStart(event) {
             	//d console.log("dragStart", this, arguments);
@@ -169,35 +177,70 @@
                 event.dataTransfer.setData('flextasks/from', event.currentTarget.style.order);
 
                 this.dragged = event.currentTarget.style.order;
+                this.$.placeholder.style.display = "block";
                 //d console.log('start dragging this.dragged', event.currentTarget.style.order, this)
             
             },
             dragEnter: function dragEnter(event) {
-            	//d console.log("dragEnter", event.target, event.currentTarget, this, arguments);
+            	console.log("dragEnter", event.target, event.currentTarget, this, arguments);
                 if (event.stopPropagation)
                     event.stopPropagation();
                 event.currentTarget.classList.add('over');
+                console.log(event.currentTarget.innerHTML);
+
+                // TODO: support all directions RTL, UTD, DTU
+                // placeholder
+                // var rect = event.currentTarget.getBoundingClientRect();
+                // if( rect.left + rect.width/2 < event.x){ // before
+                //     this.$.placeholder.style.order = parseInt(event.currentTarget.style.order, 10) - 5;
+                // } else { //after
+                //     this.$.placeholder.style.order = parseInt(event.currentTarget.style.order, 10) + 5;
+                // }
             },
-            dragOver: function dragOver(event) {
-            	//d console.log("dragOver", this, arguments);
+            dragOver: function dragOver(currentItem,event) {
+
+                
+            	//d 
+                if(event.target.id == "eight"){
+                    // console.log("dragOver", currentItem, event.currentTarget, event.target, this, arguments);
+                }
                 if (event.preventDefault) {
                     event.preventDefault();
                 }
-                event.dataTransfer.dropEffect = 'move';   
+                // if(currentItem != event.currentTarget){
+                //     debugger
+                    event.dataTransfer.dropEffect = 'move';   
+                    // TODO: support all directions RTL, UTD, DTU
+                    // placeholder
+                    var rect = event.currentTarget.getBoundingClientRect();
+                    if( rect.left + rect.width/2 < event.x){ // before
+                        this.$.placeholder.style.order = parseInt(event.currentTarget.style.order, 10) + 5;
+                    } else { //after
+                        this.$.placeholder.style.order = parseInt(event.currentTarget.style.order, 10) - 5;
+                    }
+                // }
+            },
+            dragOverPlaceholder: function dragOver(event) {
+                 if (event.preventDefault) {
+                    event.preventDefault();
+                }
             },
             dragLeave: function dragLeave(event) {
-            	//d console.log("dragLeave", event.target, event.currentTarget, this, arguments);
+            	//d 
+                console.log("dragLeave", event.target, event.currentTarget, this, arguments);
                 if (event.stopPropagation)
                     event.stopPropagation();
                 event.currentTarget.classList.remove('over');
                 event.currentTarget.classList.remove('move');
             },
             drop: function drop(event) {
-                //d console.log("drop this.dragged",  this.dragged, this);
+                //d 
+                console.log("drop this.dragged",  this.dragged, this);
                 var from = event.dataTransfer.getData('flextasks/from'),
                     newOrder;
                 //debugger;
                 event.currentTarget.classList.remove('over');
+                this.$.placeholder.style.display = "none";
                 
                 
                 if( this.dragged && //if there is something beeing dragged for this instance
@@ -221,7 +264,8 @@
                 return false;
             },
             dragEnd: function(event) {
-            	//d console.log("dragEnd", this, arguments);
+            	//d 
+                console.log("dragEnd", this, arguments);
             }
 
 

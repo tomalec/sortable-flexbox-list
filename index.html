@@ -30,7 +30,8 @@
 				<button id="toggle">Toggle dragging</button>
 
 				<!-- Using Custom Elements -->
-			    <tomalec-sortable-list unresolved>
+			    <tomalec-sortable-list unresolved placeholder>
+					<div class="placeholder" style="transform: rotate(90deg); height: 10px;">placeholder </div>
 					<li style="height: 1em">zero</li>
 					<li style="height: 2em"><input value="one"/></li>
 					<li style="height: 3em"><button>two</button></li>
@@ -39,7 +40,7 @@
 					<strong>five</strong>
 					<li style="height: 7em">six</li>
 					<li style="height: 8em">seven</li>
-					<li style="height: 9em">eight</li>
+					<li style="height: 9em" id="eight">eight</li>
 			    	<button>nine</button>
 				</tomalec-sortable-list>
 			</section>
