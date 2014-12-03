@@ -13,6 +13,7 @@
 >> * [Preloaded order](http://tomalec.github.io/sortable-flexbox-list/examples/pre-ordered.html)
 >> * [Dynamic list](http://tomalec.github.io/sortable-flexbox-list/examples/dynamicAdd.html)
 >> * [Sortable `<body>`](http://tomalec.github.io/sortable-flexbox-list/examples/sortableBody.html)
+>> * [With Bootstrap](http://tomalec.github.io/sortable-flexbox-list/examples/simpleWBootstrap.html)
 
 ## Install
 

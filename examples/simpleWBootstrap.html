@@ -26,6 +26,10 @@
           display: block;
           width: 100%;
         }
+        tomalec-sortable-list>:first-child::after{
+        	content: " (and its `:first-child` element)";
+        	color: rgba(0,0,0,0.5);
+        }
       </style>
     </head>
 <body>
@@ -47,6 +51,9 @@
     <li class="list-group-item">It uses flex box layout, so <strong>does not change the order of items in DOM</strong>.</li>
     <li class="list-group-item">Just drag some elements around.</li>
   </tomalec-sortable-list>
+  <h3>Gotchas</h3>
+  <p class="alert alert-warning">Please, note that one of the key features of <code>&lt;tomalec-sortable-list&gt;</code> is fact that it does not change DOM, and order of elements in document. That could give performance, and consistency benefits, as well as nice separation of data and layout.<br/>
+  Therefore CSS rules needs to consider fact, that visually-first element is not necessarily <code>:first-child</code> - first child is always the same element, no matter where user dropped it</p>
 
 
   <h3>Other examples</h3>
