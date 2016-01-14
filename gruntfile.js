@@ -63,8 +63,26 @@ module.exports = function (grunt) {
         },
         clean: {
             server: '.tmp'
+        },
+        bump: {
+          options: {
+            files: ['package.json', 'bower.json', 'src/tomalec-sortable-list.html'],
+            commit: true,
+            commitMessage: '%VERSION%',
+            commitFiles: ['package.json', 'bower.json', 'src/tomalec-sortable-list.html'],
+            createTag: true,
+            tagName: '%VERSION%',
+            tagMessage: 'Version %VERSION%',
+            push: false,
+            // pushTo: 'origin',
+            globalReplace: false,
+            prereleaseName: false,
+            regExp: false
+          }
         }
     });
+
+    grunt.loadNpmTasks('grunt-bump');
 
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
