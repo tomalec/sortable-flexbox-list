@@ -50,31 +50,7 @@ $ bower install tomalec-sortable-list --save
 > Please note, that `<style>`, `<template>`, and text nodes will not be sortable.
 
 
-## Usage `tomalec-sortable-body`
-
-1. Import Web Components' polyfill, if needed:
-
-	```html
-	<link rel="import" href="bower_components/tomalec-sortable-list/src/tomalec-sortable-list.html">
-	```
-
-2. Import Custom Element:
-
-	```html
-	<!-- Importing Custom Elements -->
-	<link rel="import" href="bower_components/tomalec-sortable-list/src/tomalec-sortable-body.html">
-	```
-
-3. Start using it!
-
-	```html
-  	<body is="tomalec-sortable-body">
-		<h1>Your Code</h1>
-		<p>here</p>
-	</body>
-	```
-
-> Please note, that `<style>`, `<template>`, and text nodes will not be sortable.
+## `tomalec-sortable-body` is no longer supported with Polymer 1.2
 
 ## Options/Attributes
 
