@@ -25,10 +25,10 @@ $ bower install tomalec-sortable-list --save
 
 ## Usage
 
-1. Import Web Components' polyfill:
+1. Import Web Components' polyfill, if needed:
 
 	```html
-	<script src="//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
 	```
 
 2. Import Custom Element:
@@ -52,10 +52,10 @@ $ bower install tomalec-sortable-list --save
 
 ## Usage `tomalec-sortable-body`
 
-1. Import Web Components' polyfill:
+1. Import Web Components' polyfill, if needed:
 
 	```html
-	<script src="//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"></script>
+	<link rel="import" href="bower_components/tomalec-sortable-list/src/tomalec-sortable-list.html">
 	```
 
 2. Import Custom Element:

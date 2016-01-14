@@ -116,7 +116,7 @@ tomalec-sortable-list li.over{
 tomalec-sortable-list li.move{
     opacity: .5;
 }
-tomalec-sortable-list[unresolved]{
+body[unresolved] tomalec-sortable-list{
 	height: 1em;
 }
 

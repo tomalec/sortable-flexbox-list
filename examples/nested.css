@@ -108,7 +108,7 @@ tomalec-sortable-list tomalec-sortable-list{
 	padding-top: 12px;
 }
 
-tomalec-sortable-list[unresolved]{
+body [unresolved] tomalec-sortable-list{
 	height: 1em;
 }
 

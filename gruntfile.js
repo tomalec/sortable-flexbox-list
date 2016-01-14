@@ -24,7 +24,7 @@ module.exports = function (grunt) {
                 nospawn: true,
                 livereload: true
             },
-        
+
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
@@ -73,7 +73,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            
+
             'connect:livereload',
             'open',
             'watch'

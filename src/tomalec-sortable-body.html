@@ -1,10 +1,16 @@
-<link rel="import" href="tomalec-sortable-list.html"> 
+<link rel="import" href="tomalec-sortable-list.html">
 <polymer-element name="tomalec-sortable-body" extends="body">
     <template>
 		<link rel="stylesheet" href="tomalec-sortable-list.css">
         <content></content>
     </template>
     <script>
-        Polymer('tomalec-sortable-body', Platform.mixin({}, Polymer.getRegisteredPrototype("tomalec-sortable-list")));
+    (function(){
+        var el = document.createElement('tomalec-sortable-list');
+        var SortableBodyPrototype = Object.create(el.__proto__);
+        SortableBodyPrototype.is = 'tomalec-sortable-body';
+        SortableBodyPrototype.extends = 'body';
+        Polymer(SortableBodyPrototype);
+    }());
     </script>
 </polymer-element>

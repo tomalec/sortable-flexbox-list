@@ -2,14 +2,13 @@
 <html lang="en">
   	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>&lt;tomalec-flexbox-list&gt; nested</title>
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto+Slab">
 		<link rel="stylesheet" href="nested.css">
 
     	<!-- Importing Web Component's Polyfill -->
-    	<script src="../../platform/platform.js"></script>
-   		
+    	<script src="../../webcomponentsjs/webcomponents.js"></script>
+
    		<!-- Importing Custom Elements -->
    		<link rel="import" href="../src/tomalec-sortable-list.html">
   	</head>
@@ -80,7 +79,6 @@
 
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
 		[].forEach.call( document.querySelectorAll('tomalec-sortable-list'), function(list){
 			var footer = list.children[list.childElementCount-1];
 			list.addEventListener('change', function(e) {
@@ -91,13 +89,9 @@
 			list.addEventListener('move', function(e) {
 				console.log("item moved:", e.detail);
 				e.detail.item = e.detail.item.toString();
-				footer.querySelector('.move').innerHTML = JSON.stringify(e.detail);				
+				footer.querySelector('.move').innerHTML = JSON.stringify(e.detail);
 			});
 		});
-      // Needed to detect model changes if Object.observe
-      // is not available in the JS VM.
-      Platform.performMicrotaskCheckpoint();
-    });
     </script>
 	</body>
 </html>

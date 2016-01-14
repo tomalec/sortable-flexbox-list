@@ -2,18 +2,17 @@
 <html lang="en">
   	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>&lt;tomalec-flexbox-list&gt; - dynamic</title>
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto+Slab">
 		<link rel="stylesheet" href="pre-ordered.css">
 
     	<!-- Importing Web Component's Polyfill -->
-    	<script src="../../platform/platform.js"></script>
-   		
+    	<script src="../../webcomponentsjs/webcomponents.js"></script>
+
    		<!-- Importing Custom Elements -->
    		<link rel="import" href="../src/tomalec-sortable-list.html">
   	</head>
-  	<body>
+  	<body unresolved>
 		<a href="https://github.com/tomalec/sortable-flexbox-list"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
 		<h1>Dynamic List example</h1>
@@ -23,8 +22,7 @@
 		Please note that new nodes will always be added as last in <code>order</code> even though you can add nodes into DOM as well at the beggining.
 		<section>
 			<!-- Using Custom Elements -->
-		    <tomalec-sortable-list unresolved>
-			</tomalec-sortable-list>
+		    <tomalec-sortable-list></tomalec-sortable-list>
 			<footer id="footer">
 				<button class="appendNew">Append New Item</button>
 				<button class="prependNew">Prepend New Item</button>
@@ -57,7 +55,7 @@
 
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    (function() {
 		var list = document.querySelector('tomalec-sortable-list');
 		var nameCounter = 0;
 		document.querySelector('.appendNew').addEventListener('click', function(e) {
@@ -90,14 +88,10 @@
 			list.addEventListener('move', function(e) {
 				console.log("item moved:", e.detail);
 				e.detail.item = e.detail.item.toString();
-				footer.querySelector('.move').innerHTML = JSON.stringify(e.detail);				
+				footer.querySelector('.move').innerHTML = JSON.stringify(e.detail);
 			});
 		});
-
-      // Needed to detect model changes if Object.observe
-      // is not available in the JS VM.
-      Platform.performMicrotaskCheckpoint();
-    });
+    }());
     </script>
 
 	</body>
